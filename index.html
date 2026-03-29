@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Thrillin.go - The ultimate destination for grand adventures and thrilling group tours.">
+    <meta name="description" content="Thrillin.go - The ultimate travel and tour leading company based in Ahmedabad.">
     <title>Thrillin.go | Beyond Ordinary</title>
     
     <!-- Google Fonts -->
@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Boxicons for modern icons -->
+    <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <!-- Custom CSS -->
@@ -33,6 +33,18 @@
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
 
+    <!-- Full-Screen Mobile Menu (NEW) -->
+    <div id="mobile-menu" class="glass-menu">
+        <button id="close-menu" class="hover-target"><i class='bx bx-x'></i></button>
+        <div class="mobile-links">
+            <a href="#destinations" class="mobile-link">Destinations</a>
+            <a href="#about" class="mobile-link">Our Story</a>
+            <a href="#testimonials" class="mobile-link">Reviews</a>
+            <a href="#faq" class="mobile-link">FAQs</a>
+            <a href="#moments" class="mobile-link">Gallery</a>
+        </div>
+    </div>
+
     <!-- Navbar -->
     <nav id="navbar">
         <div class="nav-container">
@@ -40,10 +52,11 @@
             <div class="nav-links">
                 <a href="#destinations" class="hover-target">Destinations</a>
                 <a href="#about" class="hover-target">Our Story</a>
+                <a href="#testimonials" class="hover-target">Reviews</a>
                 <a href="#moments" class="hover-target">Gallery</a>
             </div>
             <a href="#contact" class="btn-primary hover-target magnetic-btn">Start Journey</a>
-            <div class="hamburger hover-target">
+            <div class="hamburger hover-target" id="open-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -58,12 +71,11 @@
         <div class="hero-content">
             <p class="eyebrow reveal">Beyond the ordinary</p>
             <h1 class="reveal delay-1">Life is a grand <br><span class="text-gradient">adventure</span></h1>
-            <p class="subtitle reveal delay-2">We meticulously craft breathtaking, high-altitude treks and pristine tropical escapes for the modern thrill-seeker.</p>
+            <p class="subtitle reveal delay-2">Your ultimate travel partner in Ahmedabad. Blending travel with people's memories through expert guided tours.</p>
             <div class="hero-buttons reveal delay-3">
                 <a href="#destinations" class="btn-primary magnetic-btn hover-target">Explore Trips <i class='bx bx-right-arrow-alt'></i></a>
             </div>
         </div>
-
     </header>
 
     <!-- Marquee Banner -->
@@ -80,10 +92,34 @@
         <div class="section-container">
             <div class="section-header reveal">
                 <h2>Epic <span class="text-gradient">Escapes</span></h2>
-                <p>Curated circuits designed to push your boundaries and expand your horizons.</p>
+                <p>Curated international and domestic circuits designed to push your boundaries.</p>
             </div>
             
-            <div class="dest-grid">
+            <div class="tab-controls reveal delay-1">
+                <button class="tab-btn active hover-target" data-tab="international">International</button>
+                <button class="tab-btn hover-target" data-tab="domestic">Domestic (India)</button>
+            </div>
+            
+            <!-- International Tab -->
+            <div id="international" class="dest-grid tab-content active-tab">
+                <!-- Dubai -->
+                <div class="dest-card reveal hover-target card-featured">
+                    <div class="card-img-wrapper">
+                        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80');"></div>
+                    </div>
+                    <div class="card-content glass">
+                        <div class="card-header">
+                            <h3>Dubai</h3>
+                            <span class="badge badge-accent">Best Seller</span>
+                        </div>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
+                        <div class="card-footer">
+                            <span class="price">From ₹44,999</span>
+                            <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Vietnam -->
                 <div class="dest-card reveal hover-target">
                     <div class="card-img-wrapper">
@@ -91,48 +127,177 @@
                     </div>
                     <div class="card-content glass">
                         <div class="card-header">
-                            <h3>Vietnam</h3>
+                            <h3>Vietnam (6D/5N)</h3>
                             <span class="badge">Tropical</span>
                         </div>
-                        <p>Island hopping, speedboats, cable cars, and the ancient charm of Hoi An.</p>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
                         <div class="card-footer">
-                            <span class="price">From ₹45,000</span>
+                            <span class="price">From ₹44,000</span>
+                            <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bali -->
+                <div class="dest-card reveal hover-target">
+                    <div class="card-img-wrapper">
+                        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80');"></div>
+                    </div>
+                    <div class="card-content glass">
+                        <div class="card-header">
+                            <h3>Bali</h3>
+                            <span class="badge">Island Retreat</span>
+                        </div>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
+                        <div class="card-footer">
+                            <span class="price">From ₹26,999</span>
+                            <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thailand -->
+                <div class="dest-card reveal hover-target">
+                    <div class="card-img-wrapper">
+                        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80');"></div>
+                    </div>
+                    <div class="card-content glass">
+                        <div class="card-header">
+                            <h3>Thailand</h3>
+                            <span class="badge">Classic</span>
+                        </div>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
+                        <div class="card-footer">
+                            <span class="price">From ₹18,999</span>
+                            <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phuket & Krabi -->
+                <div class="dest-card reveal hover-target">
+                    <div class="card-img-wrapper">
+                        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1588806212557-410a51c91129?w=600&q=80');"></div>
+                    </div>
+                    <div class="card-content glass">
+                        <div class="card-header">
+                            <h3>Phuket - Krabi (6D/5N)</h3>
+                            <span class="badge">Combo</span>
+                        </div>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
+                        <div class="card-footer">
+                            <span class="price">From ₹19,999</span>
+                            <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pattaya & Bangkok -->
+                <div class="dest-card reveal hover-target">
+                    <div class="card-img-wrapper">
+                        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1583350109968-3e421cd7dc27?w=600&q=80');"></div>
+                    </div>
+                    <div class="card-content glass">
+                        <div class="card-header">
+                            <h3>Pattaya + Bangkok (5D/4N)</h3>
+                            <span class="badge">Combo</span>
+                        </div>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
+                        <div class="card-footer">
+                            <span class="price">From ₹24,999</span>
+                            <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Domestic Tab -->
+            <div id="domestic" class="dest-grid tab-content">
+                <!-- Kashmir -->
+                <div class="dest-card hover-target card-featured">
+                    <div class="card-img-wrapper">
+                        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1595815771614-ade9d652a65d?w=600&q=80');"></div>
+                    </div>
+                    <div class="card-content glass">
+                        <div class="card-header">
+                            <h3>Kashmir (6D/5N)</h3>
+                            <span class="badge badge-accent">Paradise</span>
+                        </div>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
+                        <div class="card-footer">
+                            <span class="price">From ₹19,999</span>
                             <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Himachal -->
-                <div class="dest-card reveal delay-1 hover-target card-featured">
+                <div class="dest-card hover-target">
                     <div class="card-img-wrapper">
                         <div class="dest-img placeholder-himachal"></div>
                     </div>
                     <div class="card-content glass">
                         <div class="card-header">
-                            <h3>Himachal</h3>
-                            <span class="badge badge-accent">Top Rated</span>
+                            <h3>Shimla & Manali (6D/5N)</h3>
+                            <span class="badge">Mountain</span>
                         </div>
-                        <p>Lush green valleys, snow-capped peaks, and unforgettable high-altitude trekking.</p>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
                         <div class="card-footer">
-                            <span class="price">From ₹25,000</span>
+                            <span class="price">From ₹15,000</span>
+                            <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kerala -->
+                <div class="dest-card hover-target">
+                    <div class="card-img-wrapper">
+                        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=80');"></div>
+                    </div>
+                    <div class="card-content glass">
+                        <div class="card-header">
+                            <h3>Kerala (6D/5N)</h3>
+                            <span class="badge">Nature</span>
+                        </div>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
+                        <div class="card-footer">
+                            <span class="price">From ₹15,999</span>
+                            <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goa -->
+                <div class="dest-card hover-target">
+                    <div class="card-img-wrapper">
+                        <div class="dest-img" style="background-image: url('https://images.unsplash.com/photo-1512343879784-a95e638dbf60?w=600&q=80');"></div>
+                    </div>
+                    <div class="card-content glass">
+                        <div class="card-header">
+                            <h3>Goa (4D/3N)</h3>
+                            <span class="badge">Beaches</span>
+                        </div>
+                        <p>Hotel, Breakfast, and Transportation Included.</p>
+                        <div class="card-footer">
+                            <span class="price">From ₹6,500</span>
                             <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Rajasthan -->
-                <div class="dest-card reveal delay-2 hover-target">
+                <div class="dest-card hover-target">
                     <div class="card-img-wrapper">
                         <div class="dest-img placeholder-rajasthan"></div>
                     </div>
                     <div class="card-content glass">
                         <div class="card-header">
-                            <h3>Rajasthan</h3>
+                            <h3>Rajasthan (3D/2N)</h3>
                             <span class="badge">Cultural</span>
                         </div>
-                        <p>Golden sand dunes, majestic forts, and magical sunsets in the Thar desert.</p>
+                        <p>Hotel, Breakfast, and Transportation Included in the Thar Desert.</p>
                         <div class="card-footer">
-                            <span class="price">From ₹18,000</span>
+                            <span class="price">From ₹6,599</span>
                             <a href="#contact" class="icon-link"><i class='bx bx-chevron-right'></i></a>
                         </div>
                     </div>
@@ -142,25 +307,30 @@
     </section>
 
     <!-- About Experience -->
-    <section id="about">
+    <section id="about" class="about-section pattern-bg">
         <div class="about-grid section-container">
             <div class="about-text reveal">
-                <p class="eyebrow">Why Choose Us</p>
+                <p class="eyebrow">Our Vision & Mission</p>
                 <h2>The Thrillin.go <br><span class="text-gradient">Difference</span></h2>
-                <p class="lead">Based in Ahmedabad, we are the architects of your next great story.</p>
-                <p>With a bustling community of over 30,000 thrill-seekers, our expert Gujarati Tour Managers handle the logistics, so you can focus on the adrenaline. Experience flawless execution alongside like-minded travelers.</p>
+                <p class="lead">We simply blend travelling with people's memories.</p>
+                <p>The trail of life is full of beautiful destinations, that every humankind wants to visit. Our goal is to combine tourism and people in a sustainable travelling manner with our expert First-Aid certified guides.</p>
                 
                 <ul class="feature-list">
-                    <li><i class='bx bx-check-circle text-gradient'></i> Expert Local Guides</li>
+                    <li><i class='bx bx-check-circle text-gradient'></i> Expert Local & First-Aid Certified Guides</li>
                     <li><i class='bx bx-check-circle text-gradient'></i> Handpicked Premium Stays</li>
-                    <li><i class='bx bx-check-circle text-gradient'></i> 100% Thrill Guarantee</li>
+                    <li><i class='bx bx-check-circle text-gradient'></i> 100% Thrill & Safety Guarantee</li>
                 </ul>
+
+                <div class="founder-info glass">
+                    <h4>Mr. Shivang Parekh</h4>
+                    <p>Founder & CEO</p>
+                </div>
             </div>
             
             <div class="about-stats glass reveal delay-1">
                 <div class="stat-item">
-                    <h3 class="counter" data-target="670">0</h3>
-                    <p>Trips Completed</p>
+                    <h3 class="counter" data-target="4">0</h3><span>+</span>
+                    <p>Years Experience</p>
                 </div>
                 <div class="stat-item">
                     <h3 class="counter" data-target="30000">0</h3><span>+</span>
@@ -169,6 +339,61 @@
                 <div class="stat-item">
                     <h3 class="counter" data-target="15">0</h3><span>+</span>
                     <p>Global Destinations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials (NEW) -->
+    <section id="testimonials">
+        <div class="section-container">
+            <div class="section-header reveal text-center">
+                <h2>Real <span class="text-gradient">Experiences</span></h2>
+                <p>Don't just take our word for it. Hear from the thrill-seekers themselves.</p>
+            </div>
+            
+            <div class="testimonials-grid reveal delay-1">
+                <div class="testimonial-card glass hover-target">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Well maintained camp sites on the tour, and the guides are very active. The food quality is simply the best! I'll surely visit again, I loved it and suggest you all go out for a tour with this company."</p>
+                    <h4 class="author">- Vaibhav Solanki</h4>
+                </div>
+                
+                <div class="testimonial-card glass hover-target">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"I enjoyed a lot! The quality of food was awesome and there were experienced trekkers who helped us immensely. We enjoyed the tent life safely. Thanks to Thrillin.Go for making my trip memorable! 🤩"</p>
+                    <h4 class="author">- Pujara Roshan DR</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section (NEW) -->
+    <section id="faq">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <h2>Frequent <span class="text-gradient">Curiosities</span></h2>
+                <p>Everything you need to know before you start your journey.</p>
+            </div>
+            
+            <div class="faq-container reveal delay-1">
+                <div class="faq-item">
+                    <button class="faq-question hover-target">What is included in the package prices? <i class='bx bx-chevron-down'></i></button>
+                    <div class="faq-answer">
+                        <p>All our standard and premium packages strictly include your Hotel accommodation, daily Breakfast, and all required Transportation as outlined in the itinerary. Flight bookings can be handled separately upon request.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question hover-target">Are your guides certified? <i class='bx bx-chevron-down'></i></button>
+                    <div class="faq-answer">
+                        <p>Yes, absolutely! We take your safety very seriously. Over the past 4+ years, all of our tour leaders are First-Aid certified and highly experienced in trekking and international management.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question hover-target">Do you do custom ticket and hotel bookings? <i class='bx bx-chevron-down'></i></button>
+                    <div class="faq-answer">
+                        <p>Yes. Aside from our group tours, we offer dedicated Ticketing, exclusive Hotel Booking, Trekking guidance, and personal Tour Guide services. Just contact us below!</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,11 +408,9 @@
             </div>
             
             <div class="gallery-wrapper reveal delay-1">
-                <!-- Using the generated images to create a beautiful grid -->
                 <div class="gallery-item g1 hover-target" style="background-image: url('assets/himachal_tour_1774773293833.png')"></div>
                 <div class="gallery-item g2 hover-target" style="background-image: url('assets/vietnam_tour_1774773258603.png')"></div>
                 <div class="gallery-item g3 hover-target" style="background-image: url('assets/rajasthan_tour_1774773276497.png')"></div>
-                <div class="gallery-item g4 hover-target" style="background-image: url('assets/hero_background_1774773241113.png')"></div>
             </div>
         </div>
     </section>
@@ -207,19 +430,18 @@
                     </div>
                     <div class="input-group">
                         <input type="email" id="email" required placeholder=" ">
-                        <label for="email">Email Address</label>
+                        <label for="email">Phone / Email</label>
                     </div>
                 </div>
                 <div class="input-group">
                     <select id="interest" required>
                         <option value="" disabled selected>Where to?</option>
-                        <option value="vietnam">Vietnam Escape</option>
-                        <option value="himachal">Himachal Trek</option>
-                        <option value="rajasthan">Rajasthan Royal</option>
-                        <option value="custom">Custom Thrill</option>
+                        <option value="vietnam">International Scape (Bali, Dubai...)</option>
+                        <option value="domestic">Domestic Thrill (Kashmir, Himachal...)</option>
+                        <option value="custom">Custom Ticketing & Hotel</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-primary hover-target magnetic-btn w-100">Request Itinerary <i class='bx bx-paper-plane'></i></button>
+                <button type="submit" class="btn-primary hover-target magnetic-btn w-100">Send Inquiry <i class='bx bx-paper-plane'></i></button>
             </form>
         </div>
     </section>
@@ -229,11 +451,10 @@
         <div class="footer-container section-container">
             <div class="footer-brand">
                 <a href="#" class="logo">Thrillin.<span>go</span></a>
-                <p>Life is a grand adventure, seize it.</p>
+                <p>Travel is the main thing you purchase that makes you more extravagant.</p>
                 <div class="social-links">
-                    <a href="#" class="hover-target"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://www.instagram.com/thrillin.go/" target="_blank" class="hover-target"><i class='bx bxl-instagram'></i></a>
                     <a href="#" class="hover-target"><i class='bx bxl-facebook'></i></a>
-                    <a href="#" class="hover-target"><i class='bx bxl-youtube'></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -241,14 +462,15 @@
                 <ul>
                     <li><a href="#destinations" class="hover-target">Destinations</a></li>
                     <li><a href="#about" class="hover-target">Our Story</a></li>
-                    <li><a href="#moments" class="hover-target">Gallery</a></li>
+                    <li><a href="#faq" class="hover-target">FAQs</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
-                <h4>Connect</h4>
-                <p><i class='bx bx-map'></i> Ahmedabad, Gujarat, India</p>
-                <p><i class='bx bx-envelope'></i> booking@thrillingo.com</p>
-                <p><i class='bx bx-phone'></i> +91 98765 43210</p>
+                <h4>Contact Us</h4>
+                <p><i class='bx bx-map'></i> FF/63, Harekrishna Complex, Nr Punitnagar Crossing, Ghodasar, Ahmedabad, India, 380050</p>
+                <p><i class='bx bx-envelope'></i> thrillingo.05@gmail.com</p>
+                <p><i class='bx bx-phone'></i> +91 95580 30618</p>
+                <p><i class='bx bx-phone'></i> +91 82000 61818</p>
             </div>
         </div>
         <div class="footer-bottom">
