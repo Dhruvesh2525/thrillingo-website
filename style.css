@@ -317,7 +317,7 @@ img { max-width: 100%; height: auto; display: block; }
 .feature-list li { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
 .feature-list i { font-size: 1.5rem; }
 
-.founder-info { margin-top: 40px; padding: 20px; border-radius: 12px; border-left: 4px solid var(--color-accent); display: inline-block; }
+.founder-info { margin-top: 40px; padding: 20px; border-radius: 12px; border-left: 4px solid var(--color-accent); display: inline-flex; align-items: center; gap: 15px; }
 .founder-info h4 { font-size: 1.25rem; margin-bottom: 5px; color: #fff; }
 .founder-info p { color: var(--color-text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
 

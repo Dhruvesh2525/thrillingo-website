@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thrillin.go | Destination Itinerary</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        #itinerary-hero {
+            padding: 150px 0 50px 0;
+            text-align: center;
+        }
+        #itinerary-content {
+            padding: 50px 0 100px 0;
+            min-height: 70vh;
+        }
+        .pdf-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 800px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1a1a1a;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .pdf-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* For Phuket Text */
+        .text-itinerary {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(25, 25, 25, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: left;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
+        .text-itinerary h3 {
+            color: var(--color-accent);
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .text-itinerary ul {
+            list-style: none;
+        }
+        .text-itinerary ul li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .text-itinerary ul li::before {
+            content: '•';
+            color: var(--color-accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 30px;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .btn-back:hover {
+            color: var(--color-accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cursor Glow Aura -->
+    <div class="cursor-glow"></div>
+
+    <!-- Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo hover-target">Thrillin.<span>go</span></a>
+            <div class="nav-links">
+                <a href="index.html#destinations" class="hover-target">Destinations</a>
+                <a href="index.html#services" class="hover-target">Services</a>
+                <a href="index.html#about" class="hover-target">Our Story</a>
+                <a href="index.html#testimonials" class="hover-target">Reviews</a>
+                <a href="index.html#moments" class="hover-target">Gallery</a>
+            </div>
+            <a href="index.html#contact" class="btn-primary hover-target magnetic-btn">Start Journey</a>
+        </div>
+    </nav>
+
+    <section id="itinerary-hero">
+        <div class="section-container">
+            <a href="index.html#destinations" class="btn-back hover-target"><i class='bx bx-left-arrow-alt'></i> Back to Destinations</a>
+            <p class="eyebrow reveal">Detailed Itinerary</p>
+            <h1 id="dest-title" class="reveal delay-1">Loading...</h1>
+            <p id="dest-price" class="subtitle reveal delay-2"></p>
+        </div>
+    </section>
+
+    <section id="itinerary-content">
+        <div class="section-container text-center reveal delay-3">
+            <div id="content-area">
+                <!-- Content will be injected here via JS -->
+                <div class="spinner" style="display:inline-block; position:relative; left:0; top:0; transform:none;"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>
+            </div>
+            
+            <div style="margin-top: 50px;">
+                <a id="book-btn" href="https://wa.me/918200061818" target="_blank" class="btn-primary hover-target magnetic-btn">Book This Trip <i class='bx bxl-whatsapp'></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-bottom" style="margin-top:0;">
+            <p>&copy; 2026 Thrillin.go. Built for the thrill-seekers.</p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+    <script>
+        const destinations = {
+            'dubai': { 
+                title: 'Dubai', 
+                price: 'From ₹44,999', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Duration:</strong> 5 Nights / 6 Days</p>
+                        <p><strong>Package:</strong> Dubai</p>
+                        
+                        <h3>🏨 Hotels</h3>
+                        <p><strong>5 Nights in Dubai</strong></p>
+                        <ul>
+                            <li>BUR DUBAI / DEIRA</li>
+                            <li>5 Breakfast Included</li>
+                        </ul>
+
+                        <h3>🚖 Transportation and Activities</h3>
+                        <p><strong>Day 1</strong></p>
+                        <ul><li>DXB AIRPORT ARRIVAL - BUR DUBAI / DEIRA PVT. (1-7 SEATER)</li>
+                            <li>MARINA CRUISE TRANSFERS TWO WAY (MARINA DHOW CRUISE) SIC</li></ul>
+
+                        <p><strong>Day 2</strong></p>
+                        <ul><li>DUBAI CITY TOUR (4 HOURS) SIC</li></ul>
+
+                        <p><strong>Day 3</strong></p>
+                        <ul><li>DESERT SAFARI WITH BBQ DINNER SIC</li></ul>
+
+                        <p><strong>Day 4</strong></p>
+                        <ul><li>DUBAI MALL TRANSFERS TWO WAY</li>
+                            <li>BURJ KHALIFA 124TH FLOOR (NON-PRIME)</li></ul>
+
+                        <p><strong>Day 5</strong></p>
+                        <ul><li>FREE DAY (LEISURE)</li></ul>
+
+                        <p><strong>Day 6</strong></p>
+                        <ul><li>DXB AIRPORT DEPARTURE</li></ul>
+                    </div>
+                `
+            },
+            'vietnam': { 
+                title: 'Vietnam (6D/5N)', 
+                price: 'From ₹124,999', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Duration:</strong> 9 Nights / 10 Days</p>
+                        <p><strong>Destinations:</strong> Hanoi, Halong Bay, Da Nang, Hoi An, Ho Chi Minh City</p>
+                        
+                        <h3>🏨 Hotels</h3>
+                        <ul>
+                            <li><strong>Da Nang (3 Nights):</strong> Eden Ocean Hotel</li>
+                            <li><strong>Ho Chi Minh (2 Nights):</strong> Eden Ocean Hotel</li>
+                            <li><strong>Hanoi (3 Nights):</strong> Muong Thanh Hanoi Centre Hotel</li>
+                            <li><strong>Halong Bay (1 Night):</strong> Le Journey Classic (Deluxe with Ocean View)</li>
+                        </ul>
+
+                        <h3>🚖 Transportation and Activities</h3>
+                        <p><strong>Day 1</strong></p>
+                        <ul><li>Flight From AMD to Halong bay for Cruise - Overnight in Cruise</li></ul>
+
+                        <p><strong>Day 2</strong></p>
+                        <ul><li>Morning Check out from Cruise to Hanoi</li>
+                            <li>Visit Ba Dinh Square, One Pillar Pagoda</li>
+                            <li>Temple of Literature, Sword Lake, Train street</li></ul>
+
+                        <p><strong>Day 3</strong></p>
+                        <ul><li>Full Day City tour (Hanoi City tour)</li></ul>
+
+                        <p><strong>Day 4</strong></p>
+                        <ul><li>Full Day Free at Leisure in Hanoi</li></ul>
+
+                        <p><strong>Day 5</strong></p>
+                        <ul><li>Flight to Danang, Transfer to Hotel</li>
+                            <li>Visit My Khe Beach + Dragon Bridge</li></ul>
+
+                        <p><strong>Day 6</strong></p>
+                        <ul><li>Full Day Bana Hills (Private tour)</li></ul>
+
+                        <p><strong>Day 7</strong></p>
+                        <ul><li>Half Day Hoi an Ancient tour including Lantern Boat ride</li></ul>
+
+                        <p><strong>Day 8</strong></p>
+                        <ul><li>Check out and way towards Saigon</li></ul>
+
+                        <p><strong>Day 9</strong></p>
+                        <ul><li>SAIGON FULL DAY TOUR: CITY TOURS – CU CHI TUNNELS</li></ul>
+
+                        <p><strong>Day 10</strong></p>
+                        <ul><li>Departure Day - Back to AMD</li></ul>
+                    </div>
+                `
+            },
+            'bali': { 
+                title: 'Bali', 
+                price: 'From ₹26,999', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Duration:</strong> 6 Nights / 7 Days</p>
+                        <p><strong>Package:</strong> Ultimate Bali & Nusa Penida Adventure</p>
+                        
+                        <h3>🏨 Hotels</h3>
+                        <p><strong>Handpicked Premium Stays</strong></p>
+                        <ul>
+                            <li>Hotel, Breakfast, and Transportation Included</li>
+                        </ul>
+
+                        <h3>🚖 Transportation and Activities</h3>
+                        <p><strong>Explore Bali</strong></p>
+                        <ul>
+                            <li>Expert Local & First-Aid Certified Guides</li>
+                            <li>100% Thrill & Safety Guarantee</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'thailand': { 
+                title: 'Thailand', 
+                price: 'From ₹18,999', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Duration:</strong> 5 Nights / 6 Days</p>
+                        <p><strong>Destinations:</strong> Pattaya & Bangkok</p>
+                        
+                        <h3>🏨 Hotels</h3>
+                        <ul>
+                            <li><strong>Pattaya (3 Nights):</strong> Golden Beach Hotel Pattaya</li>
+                            <li><strong>Bangkok (2 Nights):</strong> The Ecotel Hotel</li>
+                            <li>Bed and Breakfast included</li>
+                        </ul>
+
+                        <h3>🚖 Transportation and Activities</h3>
+                        <p><strong>Day 1</strong></p>
+                        <ul><li>DMK Airport to Pattaya Hotel</li>
+                            <li>Enroute: Sri Racha Tiger Zoo & Tiger Topia (Including Breakfast)</li></ul>
+
+                        <p><strong>Day 2</strong></p>
+                        <ul><li>Nong Nooch Tropical Garden with Thai Cultural + Elephant Show & Lunch</li>
+                            <li>Floating Market (Pattaya) with Boat Ride (One Way)</li></ul>
+
+                        <p><strong>Day 3</strong></p>
+                        <ul><li>Pattaya-Coral Island Tour by Speedboat with Lunch at Indian Restaurant</li>
+                            <li>Alcazar Show (Standard)</li></ul>
+
+                        <p><strong>Day 4</strong></p>
+                        <ul><li>Pattaya Hotel to Bangkok Hotel</li>
+                            <li>Enroute: Bangkok Temple Tour (Mini Recline + Marble Buddha + Gems Gallery)</li>
+                            <li>Chao Phraya Princess River Cruise Dinner</li></ul>
+
+                        <p><strong>Day 5</strong></p>
+                        <ul><li>Bangkok Safari World + Marine Park (Including Lunch)</li></ul>
+
+                        <p><strong>Day 6</strong></p>
+                        <ul><li>Bangkok Hotel to DMK Airport Transfer</li></ul>
+                    </div>
+                `
+            },
+            'kashmir': { 
+                title: 'Kashmir', 
+                price: 'From ₹19,999', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Package:</strong> Kashmir - Paradise on Earth</p>
+                        
+                        <h3>🏨 Accommodations</h3>
+                        <ul>
+                            <li>Premium Hotels and Houseboats in Srinagar</li>
+                            <li>Daily Breakfast and Dinner included</li>
+                        </ul>
+
+                        <h3>🚖 Highlights & Activities</h3>
+                        <ul>
+                            <li>Shikara Ride on Dal Lake</li>
+                            <li>Guided Tour of Gulmarg & Pahalgam</li>
+                            <li>Sonamarg Day Trip</li>
+                            <li>All Transportation Included</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'shimla_manali': { 
+                title: 'Shimla & Manali', 
+                price: 'From ₹15,000', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Package:</strong> Magical Himachal</p>
+                        
+                        <h3>🏨 Accommodations</h3>
+                        <ul>
+                            <li>Comfortable Hotel Stays in Shimla, Kullu, and Manali</li>
+                            <li>Daily Breakfast included</li>
+                        </ul>
+
+                        <h3>🚖 Highlights & Activities</h3>
+                        <ul>
+                            <li>Shimla Mall Road & Kufri Tour</li>
+                            <li>Kullu Valley Sightseeing</li>
+                            <li>Solang Valley Adventure Activities</li>
+                            <li>Rohtang Pass (Subject to availability)</li>
+                            <li>All Transportation Included</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'goa': { 
+                title: 'Goa', 
+                price: 'From ₹6,500', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Package:</strong> Thrillingo with Goa</p>
+                        
+                        <h3>🏨 Accommodations</h3>
+                        <ul>
+                            <li>Premium Resort Stay</li>
+                            <li>Daily Breakfast included</li>
+                        </ul>
+
+                        <h3>🚖 Highlights & Activities</h3>
+                        <ul>
+                            <li>North Goa Beach Hopping (Baga, Calangute, Anjuna)</li>
+                            <li>South Goa Sightseeing & Old Goa Churches</li>
+                            <li>Dudhsagar Waterfalls (Optional)</li>
+                            <li>Airport Transfers Included</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'rajasthan': { 
+                title: 'Rajasthan', 
+                price: 'From ₹5,000', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Package:</strong> Royal Rajasthan Winter Special</p>
+                        
+                        <h3>🏨 Accommodations</h3>
+                        <ul>
+                            <li>Heritage Hotels in Jodhpur and Jaisalmer</li>
+                            <li>One Night Stay in a Desert Camp in Thar</li>
+                            <li>Daily Breakfast included</li>
+                        </ul>
+
+                        <h3>🚖 Highlights & Activities</h3>
+                        <ul>
+                            <li>Mehrangarh Fort and Umaid Bhawan Palace Tour</li>
+                            <li>Jaisalmer Golden Fort & Patwon Ki Haveli</li>
+                            <li>Sam Sand Dunes Safari and Cultural Evening</li>
+                            <li>All Transportation Included</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'kedarnath': { 
+                title: 'Kedarnath', 
+                price: 'Price on Request', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Package:</strong> The Call of Mahadev</p>
+                        
+                        <h3>🏨 Accommodations</h3>
+                        <ul>
+                            <li>Comfortable Stays in Guptkashi/Phata and Kedarnath Base</li>
+                            <li>Daily Breakfast and Dinner included</li>
+                        </ul>
+
+                        <h3>🚖 Highlights & Activities</h3>
+                        <ul>
+                            <li>Spiritual Trek to Kedarnath Temple</li>
+                            <li>Helicopter Booking Assistance (Optional)</li>
+                            <li>VIP Darshan Arrangements</li>
+                            <li>First-Aid Certified Trek Leaders</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'spiti': { 
+                title: 'Spiti Valley', 
+                price: 'From ₹20,499', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Package:</strong> Spiti Valley Expedition</p>
+                        
+                        <h3>🏨 Accommodations</h3>
+                        <ul>
+                            <li>Homestays and Camps in Kaza, Tabo, and Chandratal</li>
+                            <li>Daily Breakfast and Dinner included</li>
+                        </ul>
+
+                        <h3>🚖 Highlights & Activities</h3>
+                        <ul>
+                            <li>Visit Key Monastery and Kibber Village</li>
+                            <li>Hikkim (World's Highest Post Office)</li>
+                            <li>Camping at Chandratal Lake</li>
+                            <li>Experienced Expedition Leaders</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'zanskar': { 
+                title: 'Zanskar Valley', 
+                price: 'From ₹22,799', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Package:</strong> Zanskar Valley Adventure</p>
+                        
+                        <h3>🏨 Accommodations</h3>
+                        <ul>
+                            <li>Guest Houses and Camps across Zanskar</li>
+                            <li>Daily Meals Included during Trek</li>
+                        </ul>
+
+                        <h3>🚖 Highlights & Activities</h3>
+                        <ul>
+                            <li>Explore Padum and Karsha Monastery</li>
+                            <li>Breathtaking Suru Valley Views</li>
+                            <li>High Altitude Trekking Experience</li>
+                            <li>Certified Trek Guides and Support Staff</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'hampta': { 
+                title: 'Hampta Pass Trek', 
+                price: 'From ₹6,499', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Package:</strong> Hampta Pass Trek</p>
+                        
+                        <h3>🏨 Accommodations</h3>
+                        <ul>
+                            <li>Alpine Tents on Twin/Triple Sharing</li>
+                            <li>All Nutritious Meals during Trek included</li>
+                        </ul>
+
+                        <h3>🚖 Highlights & Activities</h3>
+                        <ul>
+                            <li>Trek from lush green Kullu to barren Spiti</li>
+                            <li>Cross the majestic Hampta Pass</li>
+                            <li>Camping at Shea Goru</li>
+                            <li>Experienced First-Aid Certified Guides</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'phuket-krabi': { 
+                title: 'Phuket - Krabi (7D/6N)', 
+                price: 'From ₹46,503 / Person', 
+                type: 'text',
+                content: `
+                    <div class="text-itinerary">
+                        <h3>Trip Overview</h3>
+                        <p><strong>Duration:</strong> 6 Nights, 7 Days</p>
+                        <p><strong>Price:</strong> ₹46,503 / Person (Double Sharing) x 2 Pax (exc. GST)</p>
+                        
+                        <h3>🏨 Hotels</h3>
+                        <p><strong>1st, 2nd, 3rd Nights at Krabi</strong></p>
+                        <ul>
+                            <li>Check-in: 05 Mar & Check-out: 08 Mar</li>
+                            <li>THE CAPUCHIN HOTEL / Similar (3 Star)</li>
+                            <li>Bed and Breakfast • 1 DELUXE ROOM (2 Pax)</li>
+                        </ul>
+
+                        <p><strong>4th, 5th, 6th Nights at Phuket</strong></p>
+                        <ul>
+                            <li>Check-in: 08 Mar & Check-out: 11 Mar</li>
+                            <li>BEL AIRE HOTEL / Similar (3 Star)</li>
+                            <li>Bed and Breakfast • 1 SUPERIOR ROOM (2 Pax)</li>
+                        </ul>
+
+                        <h3>🚖 Transportation and Activities</h3>
+                        <p><strong>1st Day - Thu, 5th Mar'26</strong></p>
+                        <ul><li>Phuket Airport to Krabi Hotel - Pvt Transfer (1-Private)</li></ul>
+
+                        <p><strong>2nd Day - Fri, 6th Mar'26</strong></p>
+                        <ul><li>KRABI CITY TOUR - SIC - TOUR (2 Adults)</li></ul>
+
+                        <p><strong>3rd Day - Sat, 7th Mar'26</strong></p>
+                        <ul><li>Krabi 4 Island Tour by Longtail boat with lunch box (Excluding Island Fees) - SIC - Tour + Entry Fees (2 Adults)</li></ul>
+
+                        <p><strong>4th Day - Sun, 8th Mar'26</strong></p>
+                        <ul><li>Krabi Hotel to Phuket Hotel - Enroute: Phuket City</li></ul>
+                    </div>
+                `
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const destId = urlParams.get('dest');
+        const contentArea = document.getElementById('content-area');
+        const titleEl = document.getElementById('dest-title');
+        const priceEl = document.getElementById('dest-price');
+
+        if (destId && destinations[destId]) {
+            const dest = destinations[destId];
+            titleEl.innerHTML = dest.title;
+            priceEl.innerHTML = dest.price;
+            
+            const bookBtn = document.getElementById('book-btn');
+            if (bookBtn) {
+                bookBtn.href = `https://wa.me/918200061818?text=Hello,%20I'm%20interested%20in%20booking%20the%20${encodeURIComponent(dest.title)}%20package!`;
+            }
+            
+            if (dest.type === 'pdf') {
+                contentArea.innerHTML = `<div class="pdf-container">
+                        <iframe src="${dest.file}#view=FitH" title="${dest.title} Itinerary"></iframe>
+                    </div>`;
+            } else if (dest.type === 'text') {
+                contentArea.innerHTML = dest.content;
+            }
+        } else {
+            titleEl.innerHTML = "Destination Not Found";
+            priceEl.innerHTML = "";
+            contentArea.innerHTML = "<p>Sorry, we couldn't find the itinerary for this destination.</p>";
+        }
+    </script>
+</body>
+</html>
