@@ -118,6 +118,9 @@
             <p class="eyebrow reveal">Detailed Itinerary</p>
             <h1 id="dest-title" class="reveal delay-1">Loading...</h1>
             <p id="dest-price" class="subtitle reveal delay-2"></p>
+            <div style="margin-top: 20px;" class="reveal delay-2">
+                <a id="book-btn-top" href="https://wa.me/918200061818" target="_blank" class="btn-primary hover-target magnetic-btn">Book This Trip <i class='bx bxl-whatsapp'></i></a>
+            </div>
         </div>
     </section>
 
@@ -144,103 +147,11 @@
     <script src="script.js"></script>
     <script>
         const destinations = {
-            'dubai': { 
-                title: 'Dubai', 
-                price: 'From ₹44,999', 
-                type: 'text',
-                content: `
-                    <div class="text-itinerary">
-                        <h3>Trip Overview</h3>
-                        <p><strong>Duration:</strong> 5 Nights / 6 Days</p>
-                        <p><strong>Package:</strong> Dubai</p>
-                        
-                        <h3>🏨 Hotels</h3>
-                        <p><strong>5 Nights in Dubai</strong></p>
-                        <ul>
-                            <li>BUR DUBAI / DEIRA</li>
-                            <li>5 Breakfast Included</li>
-                        </ul>
-
-                        <h3>🚖 Transportation and Activities</h3>
-                        <p><strong>Day 1</strong></p>
-                        <ul><li>DXB AIRPORT ARRIVAL - BUR DUBAI / DEIRA PVT. (1-7 SEATER)</li>
-                            <li>MARINA CRUISE TRANSFERS TWO WAY (MARINA DHOW CRUISE) SIC</li></ul>
-
-                        <p><strong>Day 2</strong></p>
-                        <ul><li>DUBAI CITY TOUR (4 HOURS) SIC</li></ul>
-
-                        <p><strong>Day 3</strong></p>
-                        <ul><li>DESERT SAFARI WITH BBQ DINNER SIC</li></ul>
-
-                        <p><strong>Day 4</strong></p>
-                        <ul><li>DUBAI MALL TRANSFERS TWO WAY</li>
-                            <li>BURJ KHALIFA 124TH FLOOR (NON-PRIME)</li></ul>
-
-                        <p><strong>Day 5</strong></p>
-                        <ul><li>FREE DAY (LEISURE)</li></ul>
-
-                        <p><strong>Day 6</strong></p>
-                        <ul><li>DXB AIRPORT DEPARTURE</li></ul>
-                    </div>
-                `
-            },
-            'vietnam': { 
-                title: 'Vietnam (6D/5N)', 
-                price: 'From ₹124,999', 
-                type: 'text',
-                content: `
-                    <div class="text-itinerary">
-                        <h3>Trip Overview</h3>
-                        <p><strong>Duration:</strong> 9 Nights / 10 Days</p>
-                        <p><strong>Destinations:</strong> Hanoi, Halong Bay, Da Nang, Hoi An, Ho Chi Minh City</p>
-                        
-                        <h3>🏨 Hotels</h3>
-                        <ul>
-                            <li><strong>Da Nang (3 Nights):</strong> Eden Ocean Hotel</li>
-                            <li><strong>Ho Chi Minh (2 Nights):</strong> Eden Ocean Hotel</li>
-                            <li><strong>Hanoi (3 Nights):</strong> Muong Thanh Hanoi Centre Hotel</li>
-                            <li><strong>Halong Bay (1 Night):</strong> Le Journey Classic (Deluxe with Ocean View)</li>
-                        </ul>
-
-                        <h3>🚖 Transportation and Activities</h3>
-                        <p><strong>Day 1</strong></p>
-                        <ul><li>Flight From AMD to Halong bay for Cruise - Overnight in Cruise</li></ul>
-
-                        <p><strong>Day 2</strong></p>
-                        <ul><li>Morning Check out from Cruise to Hanoi</li>
-                            <li>Visit Ba Dinh Square, One Pillar Pagoda</li>
-                            <li>Temple of Literature, Sword Lake, Train street</li></ul>
-
-                        <p><strong>Day 3</strong></p>
-                        <ul><li>Full Day City tour (Hanoi City tour)</li></ul>
-
-                        <p><strong>Day 4</strong></p>
-                        <ul><li>Full Day Free at Leisure in Hanoi</li></ul>
-
-                        <p><strong>Day 5</strong></p>
-                        <ul><li>Flight to Danang, Transfer to Hotel</li>
-                            <li>Visit My Khe Beach + Dragon Bridge</li></ul>
-
-                        <p><strong>Day 6</strong></p>
-                        <ul><li>Full Day Bana Hills (Private tour)</li></ul>
-
-                        <p><strong>Day 7</strong></p>
-                        <ul><li>Half Day Hoi an Ancient tour including Lantern Boat ride</li></ul>
-
-                        <p><strong>Day 8</strong></p>
-                        <ul><li>Check out and way towards Saigon</li></ul>
-
-                        <p><strong>Day 9</strong></p>
-                        <ul><li>SAIGON FULL DAY TOUR: CITY TOURS – CU CHI TUNNELS</li></ul>
-
-                        <p><strong>Day 10</strong></p>
-                        <ul><li>Departure Day - Back to AMD</li></ul>
-                    </div>
-                `
-            },
+            'dubai': { title: 'Dubai', price: 'From ₹27,999', type: 'pdf', file: 'Thrillingo pdf/Dubai Itinerary.pdf' },
+            'vietnam': { title: 'Vietnam (6D/5N)', price: 'From ₹124,999', type: 'pdf', file: 'Thrillingo pdf/Vietnam Thrillingo.pdf' },
             'bali': { 
                 title: 'Bali', 
-                price: 'From ₹26,999', 
+                price: 'From ₹35,000', 
                 type: 'text',
                 content: `
                     <div class="text-itinerary">
@@ -248,213 +159,144 @@
                         <p><strong>Duration:</strong> 6 Nights / 7 Days</p>
                         <p><strong>Package:</strong> Ultimate Bali & Nusa Penida Adventure</p>
                         
-                        <h3>🏨 Hotels</h3>
-                        <p><strong>Handpicked Premium Stays</strong></p>
+                        <h3>🏨 Day-wise Itinerary</h3>
+                        <p><strong>Day 1: Arrival in Bali</strong></p>
+                        <ul><li>Arrival in Bali (Denpasar). Transfer to hotel. Day free for leisure.</li></ul>
+
+                        <p><strong>Day 2: Water Sports & Uluwatu</strong></p>
+                        <ul><li>Benoa Water Sports (Banana Boat, Parasailing, Jet Ski).</li>
+                            <li>Afternoon Uluwatu Sunset Tour with Kecak and Fire Dance (Lanka Dahan episode).</li></ul>
+
+                        <p><strong>Day 3: Temples & Waterfall</strong></p>
+                        <ul><li>Ulun Danu Beratan Temple (Beratan Lake).</li>
+                            <li>Git Git Waterfall (35m height).</li>
+                            <li>Tanah Lot Temple for spectacular sunset views.</li></ul>
+
+                        <p><strong>Day 4: West Nusa Penida Tour</strong></p>
+                        <ul><li>Visit Kelingking Beach (T-Rex Beach), Angel’s Billabong, Broken Beach.</li>
+                            <li>Snorkelling at Toyapakeh.</li></ul>
+
+                        <p><strong>Day 5: Ubud & Volcano Tour</strong></p>
+                        <ul><li>Inter-hotel transfer to Ubud. Kintamani Volcano Tour (Mount & Lake Batur views).</li>
+                            <li>Visit Bali Swing (jungle views), Tegalalang Rice Terrace, and Ubud Art Market.</li></ul>
+
+                        <p><strong>Day 6: Leisure</strong></p>
+                        <ul><li>Full day free at leisure.</li></ul>
+
+                        <p><strong>Day 7: Departure</strong></p>
+                        <ul><li>Departure. Transfer to Denpasar airport.</li></ul>
+
+                        <h3>✅ Inclusions</h3>
                         <ul>
-                            <li>Hotel, Breakfast, and Transportation Included</li>
+                            <li>Private car transfers (Avanza or similar)</li>
+                            <li>English-speaking driver</li>
+                            <li>Daily breakfast & Mineral water</li>
+                            <li>Entrance fees & Flower garland on arrival</li>
                         </ul>
 
-                        <h3>🚖 Transportation and Activities</h3>
-                        <p><strong>Explore Bali</strong></p>
+                        <h3>❌ Exclusions</h3>
                         <ul>
-                            <li>Expert Local & First-Aid Certified Guides</li>
-                            <li>100% Thrill & Safety Guarantee</li>
-                        </ul>
-                    </div>
-                `
-            },
-            'thailand': { 
-                title: 'Thailand', 
-                price: 'From ₹18,999', 
-                type: 'text',
-                content: `
-                    <div class="text-itinerary">
-                        <h3>Trip Overview</h3>
-                        <p><strong>Duration:</strong> 5 Nights / 6 Days</p>
-                        <p><strong>Destinations:</strong> Pattaya & Bangkok</p>
-                        
-                        <h3>🏨 Hotels</h3>
-                        <ul>
-                            <li><strong>Pattaya (3 Nights):</strong> Golden Beach Hotel Pattaya</li>
-                            <li><strong>Bangkok (2 Nights):</strong> The Ecotel Hotel</li>
-                            <li>Bed and Breakfast included</li>
-                        </ul>
-
-                        <h3>🚖 Transportation and Activities</h3>
-                        <p><strong>Day 1</strong></p>
-                        <ul><li>DMK Airport to Pattaya Hotel</li>
-                            <li>Enroute: Sri Racha Tiger Zoo & Tiger Topia (Including Breakfast)</li></ul>
-
-                        <p><strong>Day 2</strong></p>
-                        <ul><li>Nong Nooch Tropical Garden with Thai Cultural + Elephant Show & Lunch</li>
-                            <li>Floating Market (Pattaya) with Boat Ride (One Way)</li></ul>
-
-                        <p><strong>Day 3</strong></p>
-                        <ul><li>Pattaya-Coral Island Tour by Speedboat with Lunch at Indian Restaurant</li>
-                            <li>Alcazar Show (Standard)</li></ul>
-
-                        <p><strong>Day 4</strong></p>
-                        <ul><li>Pattaya Hotel to Bangkok Hotel</li>
-                            <li>Enroute: Bangkok Temple Tour (Mini Recline + Marble Buddha + Gems Gallery)</li>
-                            <li>Chao Phraya Princess River Cruise Dinner</li></ul>
-
-                        <p><strong>Day 5</strong></p>
-                        <ul><li>Bangkok Safari World + Marine Park (Including Lunch)</li></ul>
-
-                        <p><strong>Day 6</strong></p>
-                        <ul><li>Bangkok Hotel to DMK Airport Transfer</li></ul>
-                    </div>
-                `
-            },
-            'kashmir': { 
-                title: 'Kashmir', 
-                price: 'From ₹19,999', 
-                type: 'text',
-                content: `
-                    <div class="text-itinerary">
-                        <h3>Trip Overview</h3>
-                        <p><strong>Package:</strong> Kashmir - Paradise on Earth</p>
-                        
-                        <h3>🏨 Accommodations</h3>
-                        <ul>
-                            <li>Premium Hotels and Houseboats in Srinagar</li>
-                            <li>Daily Breakfast and Dinner included</li>
-                        </ul>
-
-                        <h3>🚖 Highlights & Activities</h3>
-                        <ul>
-                            <li>Shikara Ride on Dal Lake</li>
-                            <li>Guided Tour of Gulmarg & Pahalgam</li>
-                            <li>Sonamarg Day Trip</li>
-                            <li>All Transportation Included</li>
+                            <li>Tourism Levy (IDR 150k), Visa on Arrival ($35), TCS (5%)</li>
+                            <li>Personal insurance, driver tipping</li>
                         </ul>
                     </div>
                 `
             },
-            'shimla_manali': { 
-                title: 'Shimla & Manali', 
-                price: 'From ₹15,000', 
-                type: 'text',
-                content: `
-                    <div class="text-itinerary">
-                        <h3>Trip Overview</h3>
-                        <p><strong>Package:</strong> Magical Himachal</p>
-                        
-                        <h3>🏨 Accommodations</h3>
-                        <ul>
-                            <li>Comfortable Hotel Stays in Shimla, Kullu, and Manali</li>
-                            <li>Daily Breakfast included</li>
-                        </ul>
-
-                        <h3>🚖 Highlights & Activities</h3>
-                        <ul>
-                            <li>Shimla Mall Road & Kufri Tour</li>
-                            <li>Kullu Valley Sightseeing</li>
-                            <li>Solang Valley Adventure Activities</li>
-                            <li>Rohtang Pass (Subject to availability)</li>
-                            <li>All Transportation Included</li>
-                        </ul>
-                    </div>
-                `
-            },
-            'goa': { 
-                title: 'Goa', 
-                price: 'From ₹6,500', 
-                type: 'text',
-                content: `
-                    <div class="text-itinerary">
-                        <h3>Trip Overview</h3>
-                        <p><strong>Package:</strong> Thrillingo with Goa</p>
-                        
-                        <h3>🏨 Accommodations</h3>
-                        <ul>
-                            <li>Premium Resort Stay</li>
-                            <li>Daily Breakfast included</li>
-                        </ul>
-
-                        <h3>🚖 Highlights & Activities</h3>
-                        <ul>
-                            <li>North Goa Beach Hopping (Baga, Calangute, Anjuna)</li>
-                            <li>South Goa Sightseeing & Old Goa Churches</li>
-                            <li>Dudhsagar Waterfalls (Optional)</li>
-                            <li>Airport Transfers Included</li>
-                        </ul>
-                    </div>
-                `
-            },
-            'rajasthan': { 
-                title: 'Rajasthan', 
-                price: 'From ₹5,000', 
-                type: 'text',
-                content: `
-                    <div class="text-itinerary">
-                        <h3>Trip Overview</h3>
-                        <p><strong>Package:</strong> Royal Rajasthan Winter Special</p>
-                        
-                        <h3>🏨 Accommodations</h3>
-                        <ul>
-                            <li>Heritage Hotels in Jodhpur and Jaisalmer</li>
-                            <li>One Night Stay in a Desert Camp in Thar</li>
-                            <li>Daily Breakfast included</li>
-                        </ul>
-
-                        <h3>🚖 Highlights & Activities</h3>
-                        <ul>
-                            <li>Mehrangarh Fort and Umaid Bhawan Palace Tour</li>
-                            <li>Jaisalmer Golden Fort & Patwon Ki Haveli</li>
-                            <li>Sam Sand Dunes Safari and Cultural Evening</li>
-                            <li>All Transportation Included</li>
-                        </ul>
-                    </div>
-                `
-            },
+            'thailand': { title: 'Thailand', price: 'From ₹32,110', type: 'pdf', file: 'Thrillingo pdf/Thailand.pdf' },
+            'phuket-krabi': { title: 'Phuket - Krabi (7D/6N)', price: 'From ₹46,503', type: 'pdf', file: 'Thrillingo pdf/Thailand.pdf' },
+            'kashmir': { title: 'Kashmir', price: 'From ₹16,999', type: 'pdf', file: 'Thrillingo pdf/Kashmir Thrillingo.pdf' },
+            'shimla_manali': { title: 'Shimla & Manali', price: 'From ₹11,899', type: 'pdf', file: 'Thrillingo pdf/SHIMAL+KULLU+MANALI+KASOL THRILLINGO.pdf' },
+            'goa': { title: 'Goa', price: 'From ₹14,808', type: 'pdf', file: 'Thrillingo pdf/THRILLINGO WITH GOA.pdf' },
+            'rajasthan': { title: 'Rajasthan', price: 'From ₹5,000', type: 'pdf', file: 'Thrillingo pdf/Jaisalmer Thrillingo Winter Season.pdf' },
             'kedarnath': { 
                 title: 'Kedarnath', 
-                price: 'Price on Request', 
+                price: 'From ₹11,499', 
                 type: 'text',
                 content: `
                     <div class="text-itinerary">
                         <h3>Trip Overview</h3>
-                        <p><strong>Package:</strong> The Call of Mahadev</p>
-                        
-                        <h3>🏨 Accommodations</h3>
+                        <p><strong>Duration:</strong> 6 Days / 5 Nights (From Haridwar)</p>
+                        <p><strong>Package:</strong> Kedarnath: The Call of Mahadev</p>
+
+                        <h3>🏨 Day-wise Itinerary</h3>
+                        <p><strong>Day 1: Hometown to Haridwar</strong></p>
+                        <ul><li>Departure from hometown to Haridwar by train/bus.</li></ul>
+
+                        <p><strong>Day 2: Haridwar Arrival</strong></p>
+                        <ul><li>Arrival in Haridwar. Hotel check-in. Evening Ganga Aarti at Har Ki Pauri.</li></ul>
+
+                        <p><strong>Day 3: Haridwar to Guptkashi</strong></p>
+                        <ul><li>Drive from Haridwar to Guptkashi. Sightseeing at Devprayag, Rudraprayag, and Dhari Devi Temple.</li></ul>
+
+                        <p><strong>Day 4: The Kedarnath Trek</strong></p>
+                        <ul><li>Drive to Sonprayag/Gaurikund. 16 km trek to Kedarnath.</li>
+                            <li>Evening Darshan and Aarti. Night stay in Kedarnath.</li></ul>
+
+                        <p><strong>Day 5: Darshan & Return Trek</strong></p>
+                        <ul><li>Early morning Abhishek. Visit Adi Shankaracharya Samadhi and Bhairavnath Temple.</li>
+                            <li>Return trek to Gaurikund and drive back to Guptkashi.</li></ul>
+
+                        <p><strong>Day 6: Rishikesh to Haridwar</strong></p>
+                        <ul><li>Drive to Rishikesh. Visit Ram Jhula, Lakshman Jhula, and Triveni Ghat. Return to Haridwar.</li></ul>
+
+                        <p><strong>Day 7: Departure</strong></p>
+                        <ul><li>Check-out and departure.</li></ul>
+
+                        <h3>✅ Inclusions</h3>
                         <ul>
-                            <li>Comfortable Stays in Guptkashi/Phata and Kedarnath Base</li>
-                            <li>Daily Breakfast and Dinner included</li>
+                            <li>4 Breakfasts, 3 Dinners (Veg)</li>
+                            <li>Deluxe hotel stay (sharing) & Kedarnath dormitory stay</li>
+                            <li>Transportation & Yatra registration</li>
                         </ul>
 
-                        <h3>🚖 Highlights & Activities</h3>
+                        <h3>❌ Exclusions</h3>
                         <ul>
-                            <li>Spiritual Trek to Kedarnath Temple</li>
-                            <li>Helicopter Booking Assistance (Optional)</li>
-                            <li>VIP Darshan Arrangements</li>
-                            <li>First-Aid Certified Trek Leaders</li>
+                            <li>Rail/Air tickets, lunch</li>
+                            <li>Pony/Palki/Helicopter charges</li>
+                            <li>Personal expenses</li>
                         </ul>
                     </div>
                 `
             },
             'spiti': { 
                 title: 'Spiti Valley', 
-                price: 'From ₹20,499', 
+                price: 'From ₹20,500', 
                 type: 'text',
                 content: `
                     <div class="text-itinerary">
                         <h3>Trip Overview</h3>
-                        <p><strong>Package:</strong> Spiti Valley Expedition</p>
-                        
-                        <h3>🏨 Accommodations</h3>
-                        <ul>
-                            <li>Homestays and Camps in Kaza, Tabo, and Chandratal</li>
-                            <li>Daily Breakfast and Dinner included</li>
-                        </ul>
+                        <p><strong>Duration:</strong> 9 Nights / 10 Days</p>
+                        <p><strong>Package:</strong> Spiti Valley Winter/Summer Adventure</p>
 
-                        <h3>🚖 Highlights & Activities</h3>
-                        <ul>
-                            <li>Visit Key Monastery and Kibber Village</li>
-                            <li>Hikkim (World's Highest Post Office)</li>
-                            <li>Camping at Chandratal Lake</li>
-                            <li>Experienced Expedition Leaders</li>
-                        </ul>
+                        <h3>🏨 Day-wise Itinerary</h3>
+                        <p><strong>Day 0 & Day 1: Delhi to Shimla</strong></p>
+                        <ul><li>Departure from hometown to Delhi.</li>
+                            <li>Delhi to Shimla. Evening free at Mall Road.</li></ul>
+
+                        <p><strong>Day 2: Shimla to Sangla</strong></p>
+                        <ul><li>Drive via Narkanda and Sarahan.</li></ul>
+
+                        <p><strong>Day 3: Sangla to Kalpa</strong></p>
+                        <ul><li>Sangla to Chitkul (Last village) and then to Kalpa (Kinnaur Kailash views).</li></ul>
+
+                        <p><strong>Day 4: Kalpa to Tabo</strong></p>
+                        <ul><li>Kalpa to Tabo via Khab (confluence of Satluj & Spiti) and Nako Village.</li></ul>
+
+                        <p><strong>Day 5: Tabo to Kaza</strong></p>
+                        <ul><li>Tabo Monastery to Dhankar Monastery and then to Kaza.</li></ul>
+
+                        <p><strong>Day 6: Kaza Local Exploration</strong></p>
+                        <ul><li>Key Monastery, Kibber, Hikkim (Highest Post Office), Komic, and Langza.</li></ul>
+
+                        <p><strong>Day 7: Chandratal Lake</strong></p>
+                        <ul><li>Kaza to Chandratal Lake via Kunzum Pass. Camping at Chandratal.</li></ul>
+
+                        <p><strong>Day 8: Chandratal to Manali</strong></p>
+                        <ul><li>Chandratal to Manali via Rohtang Pass/Atal Tunnel.</li></ul>
+
+                        <p><strong>Day 9 & Day 10: Manali & Return</strong></p>
+                        <ul><li>Manali Local sightseeing (Hadimba Temple, Old Manali). Evening departure to Delhi.</li>
+                            <li>Day 10: Arrival in Delhi.</li></ul>
                     </div>
                 `
             },
@@ -465,20 +307,36 @@
                 content: `
                     <div class="text-itinerary">
                         <h3>Trip Overview</h3>
+                        <p><strong>Duration:</strong> 6 Nights / 7 Days</p>
                         <p><strong>Package:</strong> Zanskar Valley Adventure</p>
-                        
-                        <h3>🏨 Accommodations</h3>
-                        <ul>
-                            <li>Guest Houses and Camps across Zanskar</li>
-                            <li>Daily Meals Included during Trek</li>
-                        </ul>
 
-                        <h3>🚖 Highlights & Activities</h3>
+                        <h3>🏨 Day-wise Itinerary</h3>
+                        <p><strong>Day 1: Arrival in Leh</strong></p>
+                        <ul><li>Leh Arrival. Full day rest for acclimatization.</li></ul>
+
+                        <p><strong>Day 2: Leh to Lamayuru</strong></p>
+                        <ul><li>Via Magnetic Hill, Sangam (Indus & Zanskar), and Moonland.</li></ul>
+
+                        <p><strong>Day 3: Lamayuru to Padum</strong></p>
+                        <ul><li>Via Sirsir La and Singe La passes.</li></ul>
+
+                        <p><strong>Day 4: Padum Local</strong></p>
+                        <ul><li>Visit Karsha Monastery, Stongdey Monastery, and Zangla Fort.</li></ul>
+
+                        <p><strong>Day 5: Phugtal Monastery Trek</strong></p>
+                        <ul><li>Padum to Purne. Visit the iconic Phugtal Monastery (Trek).</li></ul>
+
+                        <p><strong>Day 6: Purne to Jispa</strong></p>
+                        <ul><li>Purne to Jispa/Keylong via Shinku La Pass.</li></ul>
+
+                        <p><strong>Day 7: Return to Manali</strong></p>
+                        <ul><li>Jispa to Manali via Atal Tunnel.</li></ul>
+
+                        <h3>✅ Inclusions</h3>
                         <ul>
-                            <li>Explore Padum and Karsha Monastery</li>
-                            <li>Breathtaking Suru Valley Views</li>
-                            <li>High Altitude Trekking Experience</li>
-                            <li>Certified Trek Guides and Support Staff</li>
+                            <li>Transportation in SUV (Innova/Xylo)</li>
+                            <li>Breakfast & Dinner</li>
+                            <li>Permits & Oxygen cylinder</li>
                         </ul>
                     </div>
                 `
@@ -490,61 +348,33 @@
                 content: `
                     <div class="text-itinerary">
                         <h3>Trip Overview</h3>
-                        <p><strong>Package:</strong> Hampta Pass Trek</p>
-                        
-                        <h3>🏨 Accommodations</h3>
+                        <p><strong>Duration:</strong> 5 Days / 4 Nights</p>
+                        <p><strong>Max Altitude:</strong> 14,010 Ft. | <strong>Trek Distance:</strong> 26 km</p>
+                        <p><strong>Package:</strong> Hampta Pass Trek with Chandratal</p>
+
+                        <h3>🏨 Day-wise Itinerary</h3>
+                        <p><strong>Day 1: Manali to Chika</strong></p>
+                        <ul><li>Drive from Manali to Jobra (2 hrs), Trek to Chika (2 hrs).</li></ul>
+
+                        <p><strong>Day 2: Chika to Balu ka Ghera</strong></p>
+                        <ul><li>Trek from Chika to Balu ka Ghera (8 km, 5-6 hrs).</li></ul>
+
+                        <p><strong>Day 3: Hampta Pass to Siagoru</strong></p>
+                        <ul><li>Trek from Balu ka Ghera to Siagoru via Hampta Pass (14 km, 8-9 hrs).</li></ul>
+
+                        <p><strong>Day 4: Chatru & Chandratal</strong></p>
+                        <ul><li>Trek from Siagoru to Chatru (8 km, 4-5 hrs).</li>
+                            <li>Drive to Chandratal Lake and return to Chatru.</li></ul>
+
+                        <p><strong>Day 5: Return to Manali</strong></p>
+                        <ul><li>Drive from Chatru to Manali via Atal Tunnel (85 km, 5-6 hrs).</li></ul>
+
+                        <h3>✅ Inclusions</h3>
                         <ul>
-                            <li>Alpine Tents on Twin/Triple Sharing</li>
-                            <li>All Nutritious Meals during Trek included</li>
+                            <li>Trekking meals (Day 1 lunch to Day 5 breakfast)</li>
+                            <li>Camping equipment & Trek leader</li>
+                            <li>Mules for common luggage & Forest charges</li>
                         </ul>
-
-                        <h3>🚖 Highlights & Activities</h3>
-                        <ul>
-                            <li>Trek from lush green Kullu to barren Spiti</li>
-                            <li>Cross the majestic Hampta Pass</li>
-                            <li>Camping at Shea Goru</li>
-                            <li>Experienced First-Aid Certified Guides</li>
-                        </ul>
-                    </div>
-                `
-            },
-            'phuket-krabi': { 
-                title: 'Phuket - Krabi (7D/6N)', 
-                price: 'From ₹46,503 / Person', 
-                type: 'text',
-                content: `
-                    <div class="text-itinerary">
-                        <h3>Trip Overview</h3>
-                        <p><strong>Duration:</strong> 6 Nights, 7 Days</p>
-                        <p><strong>Price:</strong> ₹46,503 / Person (Double Sharing) x 2 Pax (exc. GST)</p>
-                        
-                        <h3>🏨 Hotels</h3>
-                        <p><strong>1st, 2nd, 3rd Nights at Krabi</strong></p>
-                        <ul>
-                            <li>Check-in: 05 Mar & Check-out: 08 Mar</li>
-                            <li>THE CAPUCHIN HOTEL / Similar (3 Star)</li>
-                            <li>Bed and Breakfast • 1 DELUXE ROOM (2 Pax)</li>
-                        </ul>
-
-                        <p><strong>4th, 5th, 6th Nights at Phuket</strong></p>
-                        <ul>
-                            <li>Check-in: 08 Mar & Check-out: 11 Mar</li>
-                            <li>BEL AIRE HOTEL / Similar (3 Star)</li>
-                            <li>Bed and Breakfast • 1 SUPERIOR ROOM (2 Pax)</li>
-                        </ul>
-
-                        <h3>🚖 Transportation and Activities</h3>
-                        <p><strong>1st Day - Thu, 5th Mar'26</strong></p>
-                        <ul><li>Phuket Airport to Krabi Hotel - Pvt Transfer (1-Private)</li></ul>
-
-                        <p><strong>2nd Day - Fri, 6th Mar'26</strong></p>
-                        <ul><li>KRABI CITY TOUR - SIC - TOUR (2 Adults)</li></ul>
-
-                        <p><strong>3rd Day - Sat, 7th Mar'26</strong></p>
-                        <ul><li>Krabi 4 Island Tour by Longtail boat with lunch box (Excluding Island Fees) - SIC - Tour + Entry Fees (2 Adults)</li></ul>
-
-                        <p><strong>4th Day - Sun, 8th Mar'26</strong></p>
-                        <ul><li>Krabi Hotel to Phuket Hotel - Enroute: Phuket City</li></ul>
                     </div>
                 `
             }
@@ -565,10 +395,17 @@
             if (bookBtn) {
                 bookBtn.href = `https://wa.me/918200061818?text=Hello,%20I'm%20interested%20in%20booking%20the%20${encodeURIComponent(dest.title)}%20package!`;
             }
+
+            const bookBtnTop = document.getElementById('book-btn-top');
+            if (bookBtnTop) {
+                bookBtnTop.href = `https://wa.me/918200061818?text=Hello,%20I'm%20interested%20in%20booking%20the%20${encodeURIComponent(dest.title)}%20package!`;
+            }
             
             if (dest.type === 'pdf') {
-                contentArea.innerHTML = `<div class="pdf-container">
-                        <iframe src="${dest.file}#view=FitH" title="${dest.title} Itinerary"></iframe>
+                contentArea.innerHTML = `<div class="pdf-wrapper">
+                        <div class="pdf-container">
+                            <iframe src="${dest.file}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="${dest.title} Itinerary"></iframe>
+                        </div>
                     </div>`;
             } else if (dest.type === 'text') {
                 contentArea.innerHTML = dest.content;
