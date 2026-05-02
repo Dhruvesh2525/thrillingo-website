@@ -27,9 +27,9 @@
         }
         .pdf-container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
-            height: 800px;
+            height: 85vh;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -40,6 +40,53 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+        .pdf-download-link {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pdf-download-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-brand);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pdf-download-link a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+        }
+        @media(max-width: 768px) {
+            .pdf-container {
+                height: auto;
+                min-height: 0;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+            }
+            .pdf-container iframe {
+                display: none;
+            }
+            .pdf-download-link {
+                display: block;
+            }
+            .pdf-page-images {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .pdf-page-images img {
+                width: 100%;
+                border-radius: 8px;
+                display: block;
+            }
         }
         
         /* For Phuket Text */
@@ -147,8 +194,8 @@
     <script src="script.js"></script>
     <script>
         const destinations = {
-            'dubai': { title: 'Dubai', price: 'From ₹27,999', type: 'pdf', file: 'Thrillingo pdf/Dubai Itinerary.pdf' },
-            'vietnam': { title: 'Vietnam (6D/5N)', price: 'From ₹124,999', type: 'pdf', file: 'Thrillingo pdf/Vietnam Thrillingo.pdf' },
+            'dubai': { title: 'Dubai', price: 'From ₹27,999', type: 'pdf', file: 'Thrillingo pdf/Dubai Itinerary.pdf', pages: 9 },
+            'vietnam': { title: 'Vietnam (6D/5N)', price: 'From ₹124,999', type: 'pdf', file: 'Thrillingo pdf/Vietnam Thrillingo.pdf', pages: 6 },
             'bali': { 
                 title: 'Bali', 
                 price: 'From ₹35,000', 
@@ -202,12 +249,12 @@
                     </div>
                 `
             },
-            'thailand': { title: 'Thailand', price: 'From ₹32,110', type: 'pdf', file: 'Thrillingo pdf/Thailand.pdf' },
-            'phuket-krabi': { title: 'Phuket - Krabi (7D/6N)', price: 'From ₹46,503', type: 'pdf', file: 'Thrillingo pdf/Thailand.pdf' },
-            'kashmir': { title: 'Kashmir', price: 'From ₹16,999', type: 'pdf', file: 'Thrillingo pdf/Kashmir Thrillingo.pdf' },
-            'shimla_manali': { title: 'Shimla & Manali', price: 'From ₹11,899', type: 'pdf', file: 'Thrillingo pdf/SHIMAL+KULLU+MANALI+KASOL THRILLINGO.pdf' },
-            'goa': { title: 'Goa', price: 'From ₹14,808', type: 'pdf', file: 'Thrillingo pdf/THRILLINGO WITH GOA.pdf' },
-            'rajasthan': { title: 'Rajasthan', price: 'From ₹5,000', type: 'pdf', file: 'Thrillingo pdf/Jaisalmer Thrillingo Winter Season.pdf' },
+            'thailand': { title: 'Thailand', price: 'From ₹32,110', type: 'pdf', file: 'Thrillingo pdf/Thailand.pdf', pages: 9 },
+            'phuket-krabi': { title: 'Phuket - Krabi (7D/6N)', price: 'From ₹46,503', type: 'pdf', file: 'Thrillingo pdf/Thailand.pdf', pages: 9, imageKey: 'thailand' },
+            'kashmir': { title: 'Kashmir', price: 'From ₹16,999', type: 'pdf', file: 'Thrillingo pdf/Kashmir Thrillingo.pdf', pages: 10 },
+            'shimla_manali': { title: 'Shimla & Manali', price: 'From ₹11,899', type: 'pdf', file: 'Thrillingo pdf/SHIMAL+KULLU+MANALI+KASOL THRILLINGO.pdf', pages: 11 },
+            'goa': { title: 'Goa', price: 'From ₹14,808', type: 'pdf', file: 'Thrillingo pdf/THRILLINGO WITH GOA.pdf', pages: 23 },
+            'rajasthan': { title: 'Rajasthan', price: 'From ₹5,000', type: 'pdf', file: 'Thrillingo pdf/Jaisalmer Thrillingo Winter Season.pdf', pages: 7 },
             'kedarnath': { 
                 title: 'Kedarnath', 
                 price: 'From ₹11,499', 
@@ -402,10 +449,22 @@
             }
             
             if (dest.type === 'pdf') {
+                // Build mobile page images HTML
+                let mobileImagesHtml = '';
+                const imgKey = dest.imageKey || destId;
+                if (dest.pages) {
+                    for (let i = 0; i < dest.pages; i++) {
+                        mobileImagesHtml += `<img src="assets/pdf-pages/${imgKey}_page_${i}.png" alt="${dest.title} Page ${i+1}" loading="lazy">`;
+                    }
+                }
                 contentArea.innerHTML = `<div class="pdf-wrapper">
                         <div class="pdf-container">
                             <iframe src="${dest.file}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="${dest.title} Itinerary"></iframe>
+                            <div class="pdf-page-images">${mobileImagesHtml}</div>
                         </div>
+                    </div>
+                    <div class="pdf-download-link">
+                        <a href="${dest.file}" target="_blank"><i class='bx bxs-file-pdf'></i> View Full PDF</a>
                     </div>`;
             } else if (dest.type === 'text') {
                 contentArea.innerHTML = dest.content;
