@@ -394,7 +394,7 @@ img { max-width: 100%; height: auto; display: block; }
 @media(max-width: 992px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
-    .btn-primary.magnetic-btn { display: none; } /* Hide the navbar start journey button */
+    #navbar .btn-primary.magnetic-btn { display: none; } /* Hide only the navbar Start Journey button */
     
     .tab-controls { flex-wrap: wrap; justify-content: center; }
     .tab-btn { width: 100%; text-align: center; }
