@@ -3,11 +3,11 @@
 ========================================= */
 
 :root {
-    --bg-color: #050505; /* True Black */
-    --surface-color: #111111;
-    --text-main: #f4f4f5;
-    --text-muted: #888888;
-    --accent: #d4af37; /* Sophisticated Gold/Beige */
+    --bg-color: #020617; /* Deep slate blue */
+    --surface-color: #0f172a; /* Slightly lighter slate */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #f97316; /* Vibrant Sunset Orange */
     
     --font-display: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -51,7 +51,7 @@ button { font-family: inherit; cursor: none; }
 }
 .cursor-outline {
     position: fixed; top: 0; left: 0; width: 40px; height: 40px;
-    border: 1px solid rgba(212, 175, 55, 0.5); border-radius: 50%;
+    border: 1px solid rgba(249, 115, 22, 0.5); border-radius: 50%;
     transform: translate(-50%, -50%); pointer-events: none; z-index: 9999;
     transition: width 0.3s, height 0.3s, background 0.3s, border-color 0.3s;
     display: flex; align-items: center; justify-content: center;
@@ -141,8 +141,8 @@ button { font-family: inherit; cursor: none; }
 ========================================= */
 #hero { height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 120px 40px 40px 40px; max-width: 1600px; margin: 0 auto; }
 .hero-media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-.hero-img { width: 100%; height: 100%; background-size: cover; background-position: center; filter: grayscale(50%) contrast(1.2); transform: scale(1.05); transition: transform 10s ease-out; }
-.hero-overlay-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.9) 80%, rgba(5,5,5,1) 100%); }
+.hero-img { width: 100%; height: 100%; background-size: cover; background-position: center; transform: scale(1.05); transition: transform 10s ease-out; }
+.hero-overlay-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,6,23,0.1) 0%, rgba(2,6,23,0.6) 60%, rgba(2,6,23,1) 100%); }
 
 .hero-title-wrapper { margin-top: auto; margin-bottom: 10vh; }
 .hero-title { font-family: var(--font-display); font-size: clamp(4rem, 10vw, 12rem); font-weight: 900; line-height: 0.85; text-transform: uppercase; margin: 0; }
@@ -160,10 +160,10 @@ button { font-family: inherit; cursor: none; }
 /* =========================================
    Modern Marquee
 ========================================= */
-.modern-marquee { padding: 40px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.modern-marquee { padding: 40px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); background: var(--accent); color: var(--bg-color); }
 .marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; align-items: center; }
-.marquee-track span { font-family: var(--font-display); font-size: 4rem; font-weight: 900; -webkit-text-stroke: 1px rgba(255,255,255,0.2); color: transparent; text-transform: uppercase; letter-spacing: 2px; }
-.marquee-track .dot { width: 15px; height: 15px; background: var(--accent); border-radius: 50%; margin: 0 50px; }
+.marquee-track span { font-family: var(--font-display); font-size: 4rem; font-weight: 900; color: var(--bg-color); text-transform: uppercase; letter-spacing: 2px; }
+.marquee-track .dot { width: 15px; height: 15px; background: var(--bg-color); border-radius: 50%; margin: 0 50px; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 /* =========================================
@@ -273,8 +273,8 @@ button { font-family: inherit; cursor: none; }
 /* =========================================
    Mega Contact & Footer
 ========================================= */
-.mega-contact { position: relative; padding: 150px 40px 40px 40px; overflow: hidden; background: #000; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
-.contact-bg { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 60%); z-index: 0; pointer-events: none; }
+.mega-contact { position: relative; padding: 150px 40px 40px 40px; overflow: hidden; background: #020617; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
+.contact-bg { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(249, 115, 22, 0.1) 0%, transparent 60%); z-index: 0; pointer-events: none; }
 .contact-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; }
 .massive-text { font-family: var(--font-display); font-size: clamp(4rem, 12vw, 15rem); font-weight: 900; line-height: 0.8; margin-bottom: 60px; color: var(--text-main); text-align: center; letter-spacing: -5px; }
 
@@ -297,6 +297,15 @@ button { font-family: inherit; cursor: none; }
 }
 
 /* =========================================
-   Itinerary Pages
+   Itinerary Pages & Legacy Buttons
 ========================================= */
 .pdf-wrapper { margin-top: 100px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+
+.btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    background: var(--accent); color: #000;
+    padding: 14px 32px; border-radius: 30px; font-weight: 800; font-family: var(--font-display);
+    text-transform: uppercase;
+    transition: all 0.4s var(--ease-custom); border: none; cursor: none;
+}
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4); }
