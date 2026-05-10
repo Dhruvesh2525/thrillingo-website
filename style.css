@@ -124,8 +124,8 @@ button { font-family: inherit; }
 /* =========================================
    Hero Section
 ========================================= */
-#hero { height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 120px 40px 40px 40px; max-width: 1600px; margin: 0 auto; overflow: hidden; }
-.hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+#hero { height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 120px 40px 40px 40px; max-width: 1600px; margin: 0 auto; }
+.hero-media { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100vw; height: 100%; z-index: 0; overflow: hidden; }
 .hero-img { width: 100%; height: 100%; background-size: cover; background-position: center 30%; transform: scale(1.05); transition: transform 10s ease-out; }
 .hero-overlay-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,6,23,0.5) 0%, rgba(2,6,23,0.8) 60%, rgba(2,6,23,1) 100%); }
 
@@ -161,7 +161,7 @@ button { font-family: inherit; }
    Horizontal Scroll Destinations
 ========================================= */
 .horizontal-scroll-wrapper { position: relative; background: var(--bg-color); height: 300vh; /* This height drives the scroll */ }
-.horizontal-sticky-container { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; padding-top: 20vh; }
+.horizontal-sticky-container { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 0; }
 .horizontal-header { padding: 0 5vw; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 5vh; gap: 30px; text-align: center; }
 
 .tab-controls { display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; }
@@ -169,8 +169,8 @@ button { font-family: inherit; }
 .minimal-tab.active { color: var(--text-main); }
 .minimal-tab.active::after { content:''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--accent); }
 
-.horizontal-track-container { position: relative; flex-grow: 1; }
-.horizontal-track { position: absolute; top: 0; left: 0; display: none; gap: 40px; padding: 0 5vw; height: 60vh; will-change: transform; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+.horizontal-track-container { position: relative; height: 50vh; flex-grow: 0; }
+.horizontal-track { position: absolute; top: 0; left: 0; display: none; gap: 40px; padding: 0 5vw; height: 100%; will-change: transform; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
 .horizontal-track.active-track { display: flex; opacity: 1; pointer-events: all; }
 
 .journey-card { width: 400px; height: 100%; flex-shrink: 0; border-radius: 20px; overflow: hidden; position: relative; group: relative; display: block; }
@@ -187,10 +187,10 @@ button { font-family: inherit; }
 /* Mobile fallback for horizontal scroll */
 @media (max-width: 992px) {
     .horizontal-scroll-wrapper { height: auto; }
-    .horizontal-sticky-container { position: relative; height: auto; padding-top: 80px; }
+    .horizontal-sticky-container { position: relative; height: auto; padding-top: 80px; justify-content: flex-start; }
     .horizontal-header { flex-direction: column; align-items: flex-start; gap: 20px; }
     .horizontal-track-container { height: 60vh; margin-top: 20px; }
-    .horizontal-track { position: relative; overflow-x: auto; padding-bottom: 20px; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+    .horizontal-track { position: relative; overflow-x: auto; padding-bottom: 20px; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; height: 100%; }
     .journey-card { width: 80vw; scroll-snap-align: center; }
     .spacer-card { display: none; }
 }
@@ -290,7 +290,7 @@ button { font-family: inherit; }
 /* =========================================
    Itinerary Pages & Legacy Buttons
 ========================================= */
-.pdf-wrapper { margin-top: 100px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.pdf-wrapper { margin-top: 100px; border-radius: 20px; overflow: hidden; border: none; }
 
 .btn-primary {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
