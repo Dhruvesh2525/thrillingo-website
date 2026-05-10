@@ -11,71 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         initScrollReveals();
     }, 1500);
 
-    // 2. Custom Cursor & Magnetic Elements
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
-    const magneticElements = document.querySelectorAll('.magnetic');
-    const magneticTextElements = document.querySelectorAll('.magnetic-text');
-    const hoverImgElements = document.querySelectorAll('.hover-img');
-
-    let mouseX = 0, mouseY = 0;
-    let outlineX = 0, outlineY = 0;
-
-    // Only run cursor logic on non-touch devices
-    if (window.matchMedia("(pointer: fine)").matches) {
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            // Dot follows instantly
-            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-        });
-
-        const animateCursor = () => {
-            // Outline follows with lerp (easing)
-            outlineX += (mouseX - outlineX) * 0.15;
-            outlineY += (mouseY - outlineY) * 0.15;
-            cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px) translate(-50%, -50%)`;
-            
-            requestAnimationFrame(animateCursor);
-        };
-        animateCursor();
-
-        // Magnetic Pull Logic
-        const applyMagnetic = (elements, strength) => {
-            elements.forEach(el => {
-                el.addEventListener('mousemove', (e) => {
-                    const rect = el.getBoundingClientRect();
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    
-                    const distX = e.clientX - centerX;
-                    const distY = e.clientY - centerY;
-                    
-                    el.style.transform = `translate(${distX * strength}px, ${distY * strength}px)`;
-                });
-                
-                el.addEventListener('mouseleave', () => {
-                    el.style.transform = `translate(0px, 0px)`;
-                });
-            });
-        };
-        
-        applyMagnetic(magneticElements, 0.4);
-        applyMagnetic(magneticTextElements, 0.2);
-
-        // Hover expand logic
-        document.querySelectorAll('[data-cursor]').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                document.body.classList.add('cursor-expand');
-                cursorOutline.setAttribute('data-text', el.getAttribute('data-cursor'));
-            });
-            el.addEventListener('mouseleave', () => {
-                document.body.classList.remove('cursor-expand');
-                cursorOutline.setAttribute('data-text', '');
-            });
-        });
-    }
+    // Cursor logic removed
 
     // 3. Navbar Scroll
     const navbar = document.getElementById('navbar');
@@ -147,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 // Get width of active track minus viewport width to know how far to translate
                 const activeTrack = document.querySelector('.active-track');
-                const maxTranslate = activeTrack.scrollWidth - window.innerWidth + 100; // 100px padding
+                const maxTranslate = activeTrack.scrollWidth - window.innerWidth + 40; // 40px padding instead of 100 since spacer removed
                 
                 const translateX = progress * maxTranslate;
                 activeTrack.style.transform = `translateX(-${translateX}px)`;
@@ -161,20 +97,32 @@ document.addEventListener("DOMContentLoaded", () => {
         const tabs = document.querySelectorAll('.minimal-tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
+                if (tab.classList.contains('active')) return;
+                
                 tabs.forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.horizontal-track').forEach(tr => {
-                    tr.classList.remove('active-track');
-                    tr.style.transform = 'translateX(0px)'; // Reset position on swap
-                });
-                
                 tab.classList.add('active');
-                document.getElementById(tab.getAttribute('data-target')).classList.add('active-track');
                 
-                // Scroll page back to top of horizontal wrapper to restart journey
-                window.scrollTo({
-                    top: wrapper.offsetTop,
-                    behavior: 'smooth'
-                });
+                const targetTrack = document.getElementById(tab.getAttribute('data-target'));
+                const currentTrack = document.querySelector('.horizontal-track.active-track');
+                
+                if (currentTrack) {
+                    currentTrack.style.opacity = '0';
+                    setTimeout(() => {
+                        currentTrack.classList.remove('active-track');
+                        currentTrack.style.transform = 'translateX(0px)';
+                        
+                        targetTrack.classList.add('active-track');
+                        // Force reflow
+                        void targetTrack.offsetWidth;
+                        targetTrack.style.opacity = '1';
+                        
+                        // Scroll page back to top of horizontal wrapper to restart journey
+                        window.scrollTo({
+                            top: wrapper.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }, 400); // Wait for fade out
+                }
             });
         });
     } else {
@@ -182,11 +130,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const tabs = document.querySelectorAll('.minimal-tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.horizontal-track').forEach(tr => tr.classList.remove('active-track'));
+                if (tab.classList.contains('active')) return;
                 
+                tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                document.getElementById(tab.getAttribute('data-target')).classList.add('active-track');
+                
+                const targetTrack = document.getElementById(tab.getAttribute('data-target'));
+                const currentTrack = document.querySelector('.horizontal-track.active-track');
+                
+                if (currentTrack) {
+                    currentTrack.style.opacity = '0';
+                    setTimeout(() => {
+                        currentTrack.classList.remove('active-track');
+                        targetTrack.classList.add('active-track');
+                        // Force reflow
+                        void targetTrack.offsetWidth;
+                        targetTrack.style.opacity = '1';
+                    }, 400);
+                }
             });
         });
     }
