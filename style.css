@@ -124,7 +124,7 @@ button { font-family: inherit; }
 /* =========================================
    Hero Section
 ========================================= */
-#hero { height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 120px 40px 40px 40px; max-width: 1600px; margin: 0 auto; }
+#hero { height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 120px 40px 0 40px; max-width: 1600px; margin: 0 auto; }
 .hero-media { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100vw; height: 100%; z-index: 0; overflow: hidden; }
 .hero-img { width: 100%; height: 100%; background-size: cover; background-position: center 30%; transform: scale(1.05); transition: transform 10s ease-out; }
 .hero-overlay-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,6,23,0.5) 0%, rgba(2,6,23,0.8) 60%, rgba(2,6,23,1) 100%); }
@@ -146,7 +146,7 @@ button { font-family: inherit; }
 /* =========================================
    Modern Marquee
 ========================================= */
-.modern-marquee { padding: 40px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); background: var(--accent); color: var(--bg-color); }
+.modern-marquee { padding: 30px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); background: var(--accent); color: var(--bg-color); width: 100vw; position: relative; left: 50%; transform: translateX(-50%); z-index: 2; }
 .marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; align-items: center; }
 .marquee-track span { font-family: var(--font-display); font-size: 4rem; font-weight: 900; color: var(--bg-color); text-transform: uppercase; letter-spacing: 2px; }
 .marquee-track .dot { width: 15px; height: 15px; background: var(--bg-color); border-radius: 50%; margin: 0 50px; }
