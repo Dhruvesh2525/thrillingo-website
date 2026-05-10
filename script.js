@@ -247,5 +247,51 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, 400); 
             });
         });
+    } else {
+        // --- Mobile Scroll-Driven 3D Tilt Engine ---
+        // For touch devices, use scroll position to tilt cards dynamically
+        const tiltCards = document.querySelectorAll('.dest-card, .service-card, .testimonial-card');
+        
+        const tiltOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const centerY = windowHeight / 2;
+            
+            tiltCards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardCenterY = rect.top + (rect.height / 2);
+                
+                // If card is in viewport
+                if (rect.bottom > 0 && rect.top < windowHeight) {
+                    // Calculate distance from center of screen (-1 to 1)
+                    let distanceFromCenter = (cardCenterY - centerY) / centerY;
+                    
+                    // Cap it to prevent extreme rotation if user scrolls very fast
+                    if (distanceFromCenter > 1) distanceFromCenter = 1;
+                    if (distanceFromCenter < -1) distanceFromCenter = -1;
+                    
+                    // Max tilt of 12 degrees
+                    const rotateX = distanceFromCenter * 12; 
+                    
+                    // Add tilt-active to apply faster transitions
+                    card.classList.add('tilt-active');
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) scale3d(0.98, 0.98, 0.98)`;
+                }
+            });
+        };
+        
+        // Use requestAnimationFrame for smooth scrolling performance
+        let isScrolling = false;
+        window.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                window.requestAnimationFrame(() => {
+                    tiltOnScroll();
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        }, { passive: true });
+        
+        // Initial trigger
+        setTimeout(tiltOnScroll, 500);
     }
 });
