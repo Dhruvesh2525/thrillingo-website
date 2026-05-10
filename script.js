@@ -185,4 +185,67 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 3000);
         });
     }
+
+    // --- 3D Dynamic Tilt & Tracking Engine ---
+    // Only enable on non-touch / desktop devices for performance
+    if (window.matchMedia("(pointer: fine)").matches && window.innerWidth > 768) {
+        
+        // 1. Hero 3D Tracking
+        const heroContent = document.querySelector('.hero-content');
+        const heroSection = document.getElementById('hero');
+        
+        if (heroContent && heroSection) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const rect = heroSection.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -5; // max 5 deg
+                const rotateY = ((x - centerX) / centerX) * 5;  // max 5 deg
+                
+                heroContent.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            heroSection.addEventListener('mouseleave', () => {
+                heroContent.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            });
+        }
+
+        // 2. 3D Card Tilt Engine
+        const tiltCards = document.querySelectorAll('.dest-card, .service-card, .testimonial-card');
+        
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element.
+                const y = e.clientY - rect.top;  // y position within the element.
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Calculate rotation based on cursor position relative to center
+                // The further from center, the greater the rotation
+                const rotateX = ((y - centerY) / centerY) * -10; // max 10 deg tilt
+                const rotateY = ((x - centerX) / centerX) * 10;
+                
+                card.classList.add('tilt-active');
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('tilt-active');
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                
+                // Remove inline styles after transition to let CSS hover take over if needed
+                setTimeout(() => {
+                    if (!card.classList.contains('tilt-active')) {
+                        card.style.transform = '';
+                    }
+                }, 400); 
+            });
+        });
+    }
 });
