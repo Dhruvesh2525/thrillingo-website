@@ -1,22 +1,79 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Preloader
-    const preloader = document.getElementById('preloader');
-    document.body.classList.add('no-scroll');
-    
+    // 1. Intro Loader
+    const loader = document.getElementById('loader');
     setTimeout(() => {
-        preloader.classList.add('fade-out');
-        document.body.classList.remove('no-scroll');
-        
-        const reveals = document.querySelectorAll('.reveal');
-        reveals.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if(rect.top < window.innerHeight) {
-                el.classList.add('active');
-            }
-        });
-    }, 1200);
+        loader.classList.add('slide-up');
+        document.body.classList.remove('loading');
+        initScrollReveals();
+    }, 1500);
 
-    // Navbar Background Scroll Toggle
+    // 2. Custom Cursor & Magnetic Elements
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    const magneticElements = document.querySelectorAll('.magnetic');
+    const magneticTextElements = document.querySelectorAll('.magnetic-text');
+    const hoverImgElements = document.querySelectorAll('.hover-img');
+
+    let mouseX = 0, mouseY = 0;
+    let outlineX = 0, outlineY = 0;
+
+    // Only run cursor logic on non-touch devices
+    if (window.matchMedia("(pointer: fine)").matches) {
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Dot follows instantly
+            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        });
+
+        const animateCursor = () => {
+            // Outline follows with lerp (easing)
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+            cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px) translate(-50%, -50%)`;
+            
+            requestAnimationFrame(animateCursor);
+        };
+        animateCursor();
+
+        // Magnetic Pull Logic
+        const applyMagnetic = (elements, strength) => {
+            elements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    
+                    const distX = e.clientX - centerX;
+                    const distY = e.clientY - centerY;
+                    
+                    el.style.transform = `translate(${distX * strength}px, ${distY * strength}px)`;
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = `translate(0px, 0px)`;
+                });
+            });
+        };
+        
+        applyMagnetic(magneticElements, 0.4);
+        applyMagnetic(magneticTextElements, 0.2);
+
+        // Hover expand logic
+        document.querySelectorAll('[data-cursor]').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('cursor-expand');
+                cursorOutline.setAttribute('data-text', el.getAttribute('data-cursor'));
+            });
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('cursor-expand');
+                cursorOutline.setAttribute('data-text', '');
+            });
+        });
+    }
+
+    // 3. Navbar Scroll
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if(window.scrollY > 50) {
@@ -26,11 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Mobile Menu Toggle
+    // 4. Mobile Menu
     const openMenuBtn = document.getElementById('open-menu');
     const closeMenuBtn = document.getElementById('close-menu');
     const mobileMenu = document.getElementById('mobile-menu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
     
     if (openMenuBtn && closeMenuBtn && mobileMenu) {
         openMenuBtn.addEventListener('click', () => {
@@ -38,260 +94,125 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add('no-scroll');
         });
         
-        const closeMenu = () => {
+        closeMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
             document.body.classList.remove('no-scroll');
-        };
+        });
         
-        closeMenuBtn.addEventListener('click', closeMenu);
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', closeMenu);
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
         });
     }
 
-    // Tabbing Logic (International vs Domestic)
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Remove active from all tabs
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active-tab'));
-            
-            // Activate clicked tab
-            btn.classList.add('active');
-            const target = btn.getAttribute('data-tab');
-            document.getElementById(target).classList.add('active-tab');
-        });
-    });
+    // 5. Scroll Reveals
+    function initScrollReveals() {
+        const revealElements = document.querySelectorAll('.reveal-up');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const revealTop = el.getBoundingClientRect().top;
+                if(revealTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+    }
 
-    // FAQs Accordion Logic
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const faqItem = btn.parentElement;
-            const answer = faqItem.querySelector('.faq-answer');
+    // 6. Horizontal Scroll Logic
+    if (window.innerWidth > 992) {
+        const wrapper = document.querySelector('.horizontal-scroll-wrapper');
+        const stickyContainer = document.querySelector('.horizontal-sticky-container');
+        const intlTrack = document.getElementById('intl-track');
+        const domTrack = document.getElementById('dom-track');
+        
+        window.addEventListener('scroll', () => {
+            if(!wrapper) return;
+            const wrapperRect = wrapper.getBoundingClientRect();
+            const wrapperTop = wrapperRect.top;
+            const wrapperHeight = wrapperRect.height - window.innerHeight;
             
-            // Is it already open?
-            if (faqItem.classList.contains('active')) {
-                faqItem.classList.remove('active');
-                answer.style.maxHeight = null;
-            } else {
-                // Close any currently open faq-items
-                document.querySelectorAll('.faq-item.active').forEach(openItem => {
-                    openItem.classList.remove('active');
-                    openItem.querySelector('.faq-answer').style.maxHeight = null;
+            // If scrolling within the wrapper
+            if (wrapperTop <= 0 && wrapperTop >= -wrapperHeight) {
+                // Calculate percentage (0 to 1)
+                const progress = Math.abs(wrapperTop) / wrapperHeight;
+                
+                // Get width of active track minus viewport width to know how far to translate
+                const activeTrack = document.querySelector('.active-track');
+                const maxTranslate = activeTrack.scrollWidth - window.innerWidth + 100; // 100px padding
+                
+                const translateX = progress * maxTranslate;
+                activeTrack.style.transform = `translateX(-${translateX}px)`;
+            } else if (wrapperTop > 0) {
+                intlTrack.style.transform = `translateX(0px)`;
+                domTrack.style.transform = `translateX(0px)`;
+            }
+        });
+
+        // Tabs logic for Horizontal
+        const tabs = document.querySelectorAll('.minimal-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.horizontal-track').forEach(tr => {
+                    tr.classList.remove('active-track');
+                    tr.style.transform = 'translateX(0px)'; // Reset position on swap
                 });
                 
-                // Open the clicked one
-                faqItem.classList.add('active');
-                answer.style.maxHeight = answer.scrollHeight + "px";
-            }
-        });
-    });
-
-    // Scroll Reveal Logic
-    const revealElements = document.querySelectorAll('.reveal');
-    const revealOnScroll = () => {
-        const windowHeight = window.innerHeight;
-        const revealPoint = 50;
-        
-        revealElements.forEach(el => {
-            const revealTop = el.getBoundingClientRect().top;
-            if(revealTop < windowHeight - revealPoint) {
-                el.classList.add('active');
-            }
-        });
-    };
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll(); // Trigger instantly on load
-
-    // Stats counter (Number counting animation)
-    const counters = document.querySelectorAll('.counter');
-    let hasCounted = false;
-    
-    const startCounting = () => {
-        counters.forEach(counter => {
-            const updateCount = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const inc = target / 30; // speed of counting
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-target')).classList.add('active-track');
                 
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(updateCount, 40);
-                } else {
-                    counter.innerText = target;
-                }
-            };
-            updateCount();
-        });
-    };
-    
-    // Target the stats grid to know when to trigger counter
-    const statsSection = document.querySelector('.about-stats');
-    if (statsSection) {
-        window.addEventListener('scroll', () => {
-            const rect = statsSection.getBoundingClientRect();
-            // Start counter when stats are in viewport
-            if(rect.top < window.innerHeight && !hasCounted) {
-                hasCounted = true;
-                startCounting();
-            }
-        });
-    }
-
-    // Cursor Glow Aura tracker
-    const cursorGlow = document.querySelector('.cursor-glow');
-    let glowX = window.innerWidth / 2;
-    let glowY = window.innerHeight / 2;
-    let targetX = glowX;
-    let targetY = glowY;
-
-    if (window.innerWidth > 992 && cursorGlow) {
-        cursorGlow.classList.add('active');
-        
-        window.addEventListener('mousemove', (e) => {
-            targetX = e.clientX;
-            targetY = e.clientY;
-        });
-
-        const animateGlow = () => {
-            glowX += (targetX - glowX) * 0.15;
-            glowY += (targetY - glowY) * 0.15;
-            
-            cursorGlow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0) translate(-50%, -50%)`;
-            requestAnimationFrame(animateGlow);
-        };
-        animateGlow();
-    }
-
-    // Form submission mock
-    const form = document.querySelector('.sleek-form');
-    if(form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Stop page reload
-            const btn = form.querySelector('button');
-            const ogText = btn.innerHTML;
-            btn.innerHTML = `<i class='bx bx-check'></i> Inquiry Sent`;
-            btn.style.background = '#10b981'; // Green success color
-            
-            // Revert after 3s
-            setTimeout(() => {
-                btn.innerHTML = ogText;
-                btn.style.background = '';
-                form.reset();
-            }, 3000);
-        });
-    }
-
-    // --- 3D Dynamic Tilt & Tracking Engine ---
-    // Only enable on non-touch / desktop devices for performance
-    if (window.matchMedia("(pointer: fine)").matches && window.innerWidth > 768) {
-        
-        // 1. Hero 3D Tracking
-        const heroContent = document.querySelector('.hero-content');
-        const heroSection = document.getElementById('hero');
-        
-        if (heroContent && heroSection) {
-            heroSection.addEventListener('mousemove', (e) => {
-                const rect = heroSection.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -5; // max 5 deg
-                const rotateY = ((x - centerX) / centerX) * 5;  // max 5 deg
-                
-                heroContent.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-            
-            heroSection.addEventListener('mouseleave', () => {
-                heroContent.style.transform = `rotateX(0deg) rotateY(0deg)`;
-            });
-        }
-
-        // 2. 3D Card Tilt Engine
-        const tiltCards = document.querySelectorAll('.dest-card, .service-card, .testimonial-card');
-        
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element.
-                const y = e.clientY - rect.top;  // y position within the element.
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                // Calculate rotation based on cursor position relative to center
-                // The further from center, the greater the rotation
-                const rotateX = ((y - centerY) / centerY) * -10; // max 10 deg tilt
-                const rotateY = ((x - centerX) / centerX) * 10;
-                
-                card.classList.add('tilt-active');
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.classList.remove('tilt-active');
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                
-                // Remove inline styles after transition to let CSS hover take over if needed
-                setTimeout(() => {
-                    if (!card.classList.contains('tilt-active')) {
-                        card.style.transform = '';
-                    }
-                }, 400); 
+                // Scroll page back to top of horizontal wrapper to restart journey
+                window.scrollTo({
+                    top: wrapper.offsetTop,
+                    behavior: 'smooth'
+                });
             });
         });
     } else {
-        // --- Mobile Scroll-Driven 3D Tilt Engine ---
-        // For touch devices, use scroll position to tilt cards dynamically
-        const tiltCards = document.querySelectorAll('.dest-card, .service-card, .testimonial-card');
-        
-        const tiltOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            const centerY = windowHeight / 2;
-            
-            tiltCards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const cardCenterY = rect.top + (rect.height / 2);
+        // Mobile Tab logic (no horizontal scroll hijack, just standard overflow scroll)
+        const tabs = document.querySelectorAll('.minimal-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.horizontal-track').forEach(tr => tr.classList.remove('active-track'));
                 
-                // If card is in viewport
-                if (rect.bottom > 0 && rect.top < windowHeight) {
-                    // Calculate distance from center of screen (-1 to 1)
-                    let distanceFromCenter = (cardCenterY - centerY) / centerY;
-                    
-                    // Cap it to prevent extreme rotation if user scrolls very fast
-                    if (distanceFromCenter > 1) distanceFromCenter = 1;
-                    if (distanceFromCenter < -1) distanceFromCenter = -1;
-                    
-                    // Max tilt of 12 degrees
-                    const rotateX = distanceFromCenter * 12; 
-                    
-                    // Add tilt-active to apply faster transitions
-                    card.classList.add('tilt-active');
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) scale3d(0.98, 0.98, 0.98)`;
-                }
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-target')).classList.add('active-track');
             });
-        };
-        
-        // Use requestAnimationFrame for smooth scrolling performance
-        let isScrolling = false;
-        window.addEventListener('scroll', () => {
-            if (!isScrolling) {
-                window.requestAnimationFrame(() => {
-                    tiltOnScroll();
-                    isScrolling = false;
-                });
-                isScrolling = true;
-            }
-        }, { passive: true });
-        
-        // Initial trigger
-        setTimeout(tiltOnScroll, 500);
+        });
     }
+
+    // 7. Stats Counter
+    const counters = document.querySelectorAll('.counter');
+    let hasCounted = false;
+    
+    window.addEventListener('scroll', () => {
+        const statsSection = document.querySelector('.bento-small');
+        if (statsSection && !hasCounted) {
+            const rect = statsSection.getBoundingClientRect();
+            if(rect.top < window.innerHeight) {
+                hasCounted = true;
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / 30; 
+                        
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 40);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+            }
+        }
+    });
 });
