@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         loader.classList.add('slide-up');
         document.body.classList.remove('loading');
+        
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) heroTitle.classList.add('animate-in');
+        
         initScrollReveals();
     }, 1500);
 
