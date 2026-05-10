@@ -8,6 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const heroTitle = document.querySelector('.hero-title');
         if (heroTitle) heroTitle.classList.add('animate-in');
         
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        }
+        
         initScrollReveals();
     }, 1500);
 
