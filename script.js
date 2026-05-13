@@ -67,41 +67,49 @@ document.addEventListener("DOMContentLoaded", () => {
         revealOnScroll();
     }
 
-    // 6. Auto-Scrolling Carousels
+    // 6. Auto-Scrolling Carousels (Page-based)
     function initCarousel(trackId, dotsId) {
         const track = document.getElementById(trackId);
         const dotsContainer = document.getElementById(dotsId);
         if (!track || !dotsContainer) return;
 
-        const cards = track.querySelectorAll('.journey-card, .partner-card');
-        if (cards.length === 0) return;
-
-        // Calculate card width including gap (assumed 30px or 40px based on CSS)
-        const getCardWidth = () => cards[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 30);
-
-        // Create dots
-        cards.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => {
-                track.scrollTo({
-                    left: index * getCardWidth(),
-                    behavior: 'smooth'
-                });
-            });
-            dotsContainer.appendChild(dot);
-        });
-
-        const dots = dotsContainer.querySelectorAll('.dot');
         let currentIndex = 0;
+
+        function updateDots() {
+            dotsContainer.innerHTML = '';
+            // Calculate how many 'pages' exist based on scrollable width vs visible width
+            const pages = Math.ceil(track.scrollWidth / track.clientWidth);
+            
+            if (pages <= 1) return; // No dots needed if everything fits
+
+            for (let i = 0; i < pages; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === currentIndex) dot.classList.add('active');
+                
+                dot.addEventListener('click', () => {
+                    track.scrollTo({
+                        left: i * track.clientWidth,
+                        behavior: 'smooth'
+                    });
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Initialize dots slightly delayed to ensure styles/images have loaded
+        setTimeout(updateDots, 100);
+        window.addEventListener('resize', () => setTimeout(updateDots, 100));
 
         // Update active dot on scroll
         track.addEventListener('scroll', () => {
-            const scrollLeft = track.scrollLeft;
-            let newIndex = Math.round(scrollLeft / getCardWidth());
+            const dots = dotsContainer.querySelectorAll('.dot');
+            if (dots.length === 0) return;
             
-            if (newIndex >= cards.length) newIndex = cards.length - 1;
+            // Calculate which 'page' we are currently viewing
+            let newIndex = Math.round(track.scrollLeft / track.clientWidth);
+            
+            if (newIndex >= dots.length) newIndex = dots.length - 1;
             if (newIndex < 0) newIndex = 0;
 
             if (newIndex !== currentIndex && dots[newIndex]) {
@@ -112,19 +120,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // Auto-scroll interval
-        let autoScrollInterval = setInterval(scrollToNext, 3500);
+        let autoScrollInterval = setInterval(scrollToNext, 4000);
 
         function scrollToNext() {
+            const dots = dotsContainer.querySelectorAll('.dot');
+            if (dots.length <= 1) return;
+
             let nextIndex = currentIndex + 1;
             
-            // Check if we've reached the end of the scrollable area
-            // Sometimes the last few cards fit on the screen together
-            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+            // Check if we've reached the end
+            if (nextIndex >= dots.length || track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
                 nextIndex = 0; // Loop back
             }
 
             track.scrollTo({
-                left: nextIndex * getCardWidth(),
+                left: nextIndex * track.clientWidth,
                 behavior: 'smooth'
             });
         }
@@ -132,13 +142,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Pause on hover
         track.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
         track.addEventListener('mouseleave', () => {
-            autoScrollInterval = setInterval(scrollToNext, 3500);
+            autoScrollInterval = setInterval(scrollToNext, 4000);
         });
         
         // Pause on touch
         track.addEventListener('touchstart', () => clearInterval(autoScrollInterval), {passive: true});
         track.addEventListener('touchend', () => {
-            autoScrollInterval = setInterval(scrollToNext, 3500);
+            autoScrollInterval = setInterval(scrollToNext, 4000);
         }, {passive: true});
     }
 
