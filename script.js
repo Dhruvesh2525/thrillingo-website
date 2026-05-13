@@ -67,94 +67,84 @@ document.addEventListener("DOMContentLoaded", () => {
         revealOnScroll();
     }
 
-    // 6. Horizontal Scroll Logic
-    if (window.innerWidth > 992) {
-        const wrapper = document.querySelector('.horizontal-scroll-wrapper');
-        const stickyContainer = document.querySelector('.horizontal-sticky-container');
-        const intlTrack = document.getElementById('intl-track');
-        const domTrack = document.getElementById('dom-track');
-        
-        window.addEventListener('scroll', () => {
-            if(!wrapper) return;
-            const wrapperRect = wrapper.getBoundingClientRect();
-            const wrapperTop = wrapperRect.top;
-            const wrapperHeight = wrapperRect.height - window.innerHeight;
+    // 6. Auto-Scrolling Carousels
+    function initCarousel(trackId, dotsId) {
+        const track = document.getElementById(trackId);
+        const dotsContainer = document.getElementById(dotsId);
+        if (!track || !dotsContainer) return;
+
+        const cards = track.querySelectorAll('.journey-card, .partner-card');
+        if (cards.length === 0) return;
+
+        // Calculate card width including gap (assumed 30px or 40px based on CSS)
+        const getCardWidth = () => cards[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 30);
+
+        // Create dots
+        cards.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                track.scrollTo({
+                    left: index * getCardWidth(),
+                    behavior: 'smooth'
+                });
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll('.dot');
+        let currentIndex = 0;
+
+        // Update active dot on scroll
+        track.addEventListener('scroll', () => {
+            const scrollLeft = track.scrollLeft;
+            let newIndex = Math.round(scrollLeft / getCardWidth());
             
-            // If scrolling within the wrapper
-            if (wrapperTop <= 0 && wrapperTop >= -wrapperHeight) {
-                // Calculate percentage (0 to 1)
-                const progress = Math.abs(wrapperTop) / wrapperHeight;
-                
-                // Get width of active track minus viewport width to know how far to translate
-                const activeTrack = document.querySelector('.active-track');
-                const maxTranslate = activeTrack.scrollWidth - window.innerWidth + 40; // 40px padding instead of 100 since spacer removed
-                
-                const translateX = progress * maxTranslate;
-                activeTrack.style.transform = `translateX(-${translateX}px)`;
-            } else if (wrapperTop > 0) {
-                intlTrack.style.transform = `translateX(0px)`;
-                domTrack.style.transform = `translateX(0px)`;
+            if (newIndex >= cards.length) newIndex = cards.length - 1;
+            if (newIndex < 0) newIndex = 0;
+
+            if (newIndex !== currentIndex && dots[newIndex]) {
+                if(dots[currentIndex]) dots[currentIndex].classList.remove('active');
+                currentIndex = newIndex;
+                dots[currentIndex].classList.add('active');
             }
         });
 
-        // Tabs logic for Horizontal
-        const tabs = document.querySelectorAll('.minimal-tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                if (tab.classList.contains('active')) return;
-                
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                const targetTrack = document.getElementById(tab.getAttribute('data-target'));
-                const currentTrack = document.querySelector('.horizontal-track.active-track');
-                
-                if (currentTrack) {
-                    currentTrack.style.opacity = '0';
-                    setTimeout(() => {
-                        currentTrack.classList.remove('active-track');
-                        currentTrack.style.transform = 'translateX(0px)';
-                        
-                        targetTrack.classList.add('active-track');
-                        // Force reflow
-                        void targetTrack.offsetWidth;
-                        targetTrack.style.opacity = '1';
-                        
-                        // Scroll page back to top of horizontal wrapper to restart journey
-                        window.scrollTo({
-                            top: wrapper.offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }, 400); // Wait for fade out
-                }
+        // Auto-scroll interval
+        let autoScrollInterval = setInterval(scrollToNext, 3500);
+
+        function scrollToNext() {
+            let nextIndex = currentIndex + 1;
+            
+            // Check if we've reached the end of the scrollable area
+            // Sometimes the last few cards fit on the screen together
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+                nextIndex = 0; // Loop back
+            }
+
+            track.scrollTo({
+                left: nextIndex * getCardWidth(),
+                behavior: 'smooth'
             });
+        }
+
+        // Pause on hover
+        track.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+        track.addEventListener('mouseleave', () => {
+            autoScrollInterval = setInterval(scrollToNext, 3500);
         });
-    } else {
-        // Mobile Tab logic (no horizontal scroll hijack, just standard overflow scroll)
-        const tabs = document.querySelectorAll('.minimal-tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                if (tab.classList.contains('active')) return;
-                
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                const targetTrack = document.getElementById(tab.getAttribute('data-target'));
-                const currentTrack = document.querySelector('.horizontal-track.active-track');
-                
-                if (currentTrack) {
-                    currentTrack.style.opacity = '0';
-                    setTimeout(() => {
-                        currentTrack.classList.remove('active-track');
-                        targetTrack.classList.add('active-track');
-                        // Force reflow
-                        void targetTrack.offsetWidth;
-                        targetTrack.style.opacity = '1';
-                    }, 400);
-                }
-            });
-        });
+        
+        // Pause on touch
+        track.addEventListener('touchstart', () => clearInterval(autoScrollInterval), {passive: true});
+        track.addEventListener('touchend', () => {
+            autoScrollInterval = setInterval(scrollToNext, 3500);
+        }, {passive: true});
     }
+
+    initCarousel('dom-track', 'dom-dots');
+    initCarousel('intl-track', 'intl-dots');
+    initCarousel('partners-track', 'partners-dots');
 
     // 7. Stats Counter
     const counters = document.querySelectorAll('.counter');

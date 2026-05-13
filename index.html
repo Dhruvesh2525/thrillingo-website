@@ -85,19 +85,16 @@
         </div>
     </header>
 
-    <!-- Horizontal Scroll Destinations -->
-    <section id="destinations" class="horizontal-scroll-wrapper">
-        <div class="horizontal-sticky-container">
-            <div class="horizontal-header">
-                <h2 class="section-title reveal-up">Epic <br>Escapes.</h2>
-                <div class="tab-controls reveal-up delay-1">
-                    <button class="minimal-tab" data-target="intl-track">International</button>
-                    <button class="minimal-tab active" data-target="dom-track">Domestic</button>
-                </div>
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations-section">
+        
+        <!-- Domestic Category -->
+        <div class="destination-category">
+            <div class="category-header reveal-up">
+                <h2 class="section-title">Domestic<br>Escapes.</h2>
             </div>
-            
-            <div class="horizontal-track-container">
-                <div id="intl-track" class="horizontal-track">
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="dom-track">
                     <!-- Cards -->
                     <a href="itinerary.html?dest=dubai" class="journey-card hover-img" data-cursor="Explore">
                         <div class="card-img" style="background-image: url('assets/dubai_tour.png');"></div>
@@ -135,8 +132,17 @@
                         </div>
                     </a>
                 </div>
+                <div class="carousel-dots" id="dom-dots"></div>
+            </div>
+        </div>
 
-                <div id="dom-track" class="horizontal-track active-track">
+        <!-- International Category -->
+        <div class="destination-category">
+            <div class="category-header reveal-up">
+                <h2 class="section-title">International<br>Escapes.</h2>
+            </div>
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="intl-track">
                     <a href="itinerary.html?dest=kashmir" class="journey-card hover-img" data-cursor="Explore">
                         <div class="card-img" style="background-image: url('assets/kashmir_tour.png');"></div>
                         <div class="card-info">
@@ -187,6 +193,7 @@
                         </div>
                     </a>
                 </div>
+                <div class="carousel-dots" id="intl-dots"></div>
             </div>
         </div>
     </section>
@@ -271,6 +278,38 @@
                 <p>"I enjoyed a lot! The quality of food was awesome and there were experienced trekkers who helped us immensely. Thanks to Thrillin.Go!"</p>
                 <h5>- Pujara Roshan DR</h5>
             </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners-section">
+        <div class="category-header reveal-up" style="padding-left: 5vw; margin-bottom: 40px;">
+            <h2 class="section-title" style="font-size: 3rem;">Trusted <br>Partners.</h2>
+        </div>
+        <div class="carousel-wrapper">
+            <div class="carousel-track partners-track" id="partners-track">
+                <div class="partner-card hover-img">
+                    <div class="partner-icon"><i class='bx bx-paper-plane'></i></div>
+                    <h3>Sitara Holidays</h3>
+                </div>
+                <div class="partner-card hover-img">
+                    <div class="partner-icon"><i class='bx bx-compass'></i></div>
+                    <h3>Trio Holiday</h3>
+                </div>
+                <div class="partner-card hover-img">
+                    <div class="partner-icon"><i class='bx bx-star'></i></div>
+                    <h3>Star Holidays</h3>
+                </div>
+                <div class="partner-card hover-img">
+                    <div class="partner-icon"><i class='bx bx-group'></i></div>
+                    <h3>Sathi Holiday</h3>
+                </div>
+                <div class="partner-card hover-img">
+                    <div class="partner-icon"><i class='bx bx-party'></i></div>
+                    <h3>The Enjoy Travelss</h3>
+                </div>
+            </div>
+            <div class="carousel-dots" id="partners-dots"></div>
         </div>
     </section>
 
