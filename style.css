@@ -165,11 +165,11 @@ button { font-family: inherit; }
 .category-header { padding: 0 5vw; }
 
 .carousel-wrapper { position: relative; width: 100%; display: flex; flex-direction: column; gap: 20px; }
-.carousel-track { display: flex; gap: 30px; padding: 0 5vw; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
+.carousel-track { display: flex; gap: 30px; padding: 0 5vw; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
 .carousel-track::-webkit-scrollbar { display: none; }
 .carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
 
-.journey-card { width: 350px; height: 450px; flex-shrink: 0; border-radius: 20px; overflow: hidden; position: relative; display: block; scroll-snap-align: start; }
+.journey-card { width: 350px; height: 450px; flex-shrink: 0; border-radius: 20px; overflow: hidden; position: relative; display: block; }
 .card-img { width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.8s var(--ease-custom); }
 .journey-card:hover .card-img { transform: scale(1.05); }
 .journey-card::after { content:''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%); }
@@ -185,7 +185,7 @@ button { font-family: inherit; }
 
 /* Mobile fallback for carousels */
 @media (max-width: 992px) {
-    .journey-card { width: 80vw; scroll-snap-align: center; }
+    .journey-card { width: 80vw; }
 }
 
 /* =========================================
@@ -193,7 +193,7 @@ button { font-family: inherit; }
 ========================================= */
 .partners-section { padding: 100px 0; margin-bottom: 100px; }
 .partners-track { gap: 40px; padding-bottom: 40px; }
-.partner-card { width: 250px; height: 150px; flex-shrink: 0; border-radius: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; justify-content: center; scroll-snap-align: start; transition: transform 0.3s ease; gap: 10px; }
+.partner-card { width: 250px; height: 150px; flex-shrink: 0; border-radius: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform 0.3s ease; gap: 10px; }
 .partner-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05); }
 .partner-icon i { font-size: 3rem; color: var(--accent); }
 .partner-card h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--text-main); font-weight: 600; }

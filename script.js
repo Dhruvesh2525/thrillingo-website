@@ -67,48 +67,94 @@ document.addEventListener("DOMContentLoaded", () => {
         revealOnScroll();
     }
 
-    // 6. Auto-Scrolling Carousels (Page-based)
+    // 6. Auto-Scrolling Carousels (Super Smooth JS Easing)
     function initCarousel(trackId, dotsId) {
         const track = document.getElementById(trackId);
         const dotsContainer = document.getElementById(dotsId);
         if (!track || !dotsContainer) return;
 
+        let cards = track.querySelectorAll('.journey-card, .partner-card');
+        if (cards.length === 0) return;
+
         let currentIndex = 0;
+        let isAnimating = false;
+
+        // Easing function for luxurious, smooth sliding
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        // Custom smooth scroll engine
+        function smoothScrollTo(element, targetPosition, duration) {
+            isAnimating = true;
+            const startPosition = element.scrollLeft;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                
+                element.scrollLeft = startPosition + (distance * easeInOutCubic(progress));
+
+                if (timeElapsed < duration) {
+                    requestAnimationFrame(animation);
+                } else {
+                    isAnimating = false;
+                }
+            }
+            requestAnimationFrame(animation);
+        }
+
+        function getCardWidth() {
+            return cards[0].offsetWidth + parseInt(window.getComputedStyle(track).gap || 30);
+        }
 
         function updateDots() {
             dotsContainer.innerHTML = '';
-            // Calculate how many 'pages' exist based on scrollable width vs visible width
-            const pages = Math.ceil(track.scrollWidth / track.clientWidth);
+            const maxScrollLeft = track.scrollWidth - track.clientWidth;
             
-            if (pages <= 1) return; // No dots needed if everything fits
+            // Generate dots for each visible step
+            const totalSteps = Math.ceil(maxScrollLeft / getCardWidth()) + 1;
+            
+            if (totalSteps <= 1) return; // Hide dots if everything fits
 
-            for (let i = 0; i < pages; i++) {
+            for (let i = 0; i < totalSteps; i++) {
                 const dot = document.createElement('div');
                 dot.classList.add('dot');
                 if (i === currentIndex) dot.classList.add('active');
                 
                 dot.addEventListener('click', () => {
-                    track.scrollTo({
-                        left: i * track.clientWidth,
-                        behavior: 'smooth'
-                    });
+                    if (isAnimating) return;
+                    
+                    let targetScroll = i * getCardWidth();
+                    // Don't scroll past the max
+                    if (targetScroll > maxScrollLeft) targetScroll = maxScrollLeft;
+                    
+                    smoothScrollTo(track, targetScroll, 1000); // 1000ms duration
                 });
                 dotsContainer.appendChild(dot);
             }
         }
 
-        // Initialize dots slightly delayed to ensure styles/images have loaded
-        setTimeout(updateDots, 100);
-        window.addEventListener('resize', () => setTimeout(updateDots, 100));
+        setTimeout(updateDots, 150);
+        window.addEventListener('resize', () => setTimeout(updateDots, 150));
 
-        // Update active dot on scroll
+        // Sync active dot on scroll (handles manual swiping too)
         track.addEventListener('scroll', () => {
+            if (isAnimating) return; // Let the animation control the dots if it's running
+            
             const dots = dotsContainer.querySelectorAll('.dot');
             if (dots.length === 0) return;
             
-            // Calculate which 'page' we are currently viewing
-            let newIndex = Math.round(track.scrollLeft / track.clientWidth);
+            let newIndex = Math.round(track.scrollLeft / getCardWidth());
             
+            // Force last dot if at the very end
+            if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 10) {
+                newIndex = dots.length - 1;
+            }
+
             if (newIndex >= dots.length) newIndex = dots.length - 1;
             if (newIndex < 0) newIndex = 0;
 
@@ -119,36 +165,42 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Auto-scroll interval
-        let autoScrollInterval = setInterval(scrollToNext, 4000);
+        let autoScrollInterval = setInterval(scrollToNext, 4500);
 
         function scrollToNext() {
+            if (isAnimating) return;
             const dots = dotsContainer.querySelectorAll('.dot');
             if (dots.length <= 1) return;
 
             let nextIndex = currentIndex + 1;
-            
-            // Check if we've reached the end
-            if (nextIndex >= dots.length || track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-                nextIndex = 0; // Loop back
+            let targetScroll = nextIndex * getCardWidth();
+            const maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+            // Loop back if we hit the end
+            if (nextIndex >= dots.length || track.scrollLeft >= maxScrollLeft - 10) {
+                nextIndex = 0;
+                targetScroll = 0;
             }
 
-            track.scrollTo({
-                left: nextIndex * track.clientWidth,
-                behavior: 'smooth'
-            });
+            // Update dots explicitly during JS animation
+            if(dots[currentIndex]) dots[currentIndex].classList.remove('active');
+            currentIndex = nextIndex;
+            if(dots[currentIndex]) dots[currentIndex].classList.add('active');
+
+            // Smoothly slide to the target
+            smoothScrollTo(track, targetScroll, 1000);
         }
 
-        // Pause on hover
+        // Pause auto-scroll on interactions
         track.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
         track.addEventListener('mouseleave', () => {
-            autoScrollInterval = setInterval(scrollToNext, 4000);
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = setInterval(scrollToNext, 4500);
         });
-        
-        // Pause on touch
         track.addEventListener('touchstart', () => clearInterval(autoScrollInterval), {passive: true});
         track.addEventListener('touchend', () => {
-            autoScrollInterval = setInterval(scrollToNext, 4000);
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = setInterval(scrollToNext, 4500);
         }, {passive: true});
     }
 
