@@ -78,7 +78,7 @@ button { font-family: inherit; }
 #navbar { position: fixed; top: 0; width: 100%; padding: 30px 0; z-index: 1000; transition: padding 0.5s var(--ease-custom), background 0.5s; }
 #navbar.scrolled { padding: 15px 0; background: rgba(247,247,247,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.05); }
 .nav-container { max-width: 1600px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-.logo-img { height: 40px; mix-blend-mode: multiply; }
+.logo { font-family: var(--font-display); font-size: 2rem; font-weight: 900; letter-spacing: -2px; }
 .nav-links { display: flex; gap: 40px; }
 .nav-links a { font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); position: relative; }
 .nav-links a::after { content:''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background: var(--accent); transition: width 0.3s; }
