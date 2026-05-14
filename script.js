@@ -236,4 +236,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+    // 8. Hero Background Slider
+    const heroImages = document.querySelectorAll('.hero-img');
+    if (heroImages.length > 1) {
+        let currentHeroIndex = 0;
+        setInterval(() => {
+            heroImages[currentHeroIndex].classList.remove('active');
+            currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+            heroImages[currentHeroIndex].classList.add('active');
+        }, 5000);
+    }
 });
