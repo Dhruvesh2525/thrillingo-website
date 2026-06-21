@@ -13,6 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         initScrollReveals();
+        
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 1200);
     }, 1500);
 
     // Cursor logic removed
@@ -219,16 +223,17 @@ document.addEventListener("DOMContentLoaded", () => {
             if(rect.top < window.innerHeight) {
                 hasCounted = true;
                 counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    let currentCount = 0;
+                    const inc = target / 30; 
+                    
                     const updateCount = () => {
-                        const target = +counter.getAttribute('data-target');
-                        const count = +counter.innerText;
-                        const inc = target / 30; 
-                        
-                        if (count < target) {
-                            counter.innerText = Math.ceil(count + inc);
+                        currentCount += inc;
+                        if (currentCount < target) {
+                            counter.innerText = Math.ceil(currentCount).toLocaleString();
                             setTimeout(updateCount, 40);
                         } else {
-                            counter.innerText = target;
+                            counter.innerText = target.toLocaleString();
                         }
                     };
                     updateCount();
