@@ -66,6 +66,7 @@ button { font-family: inherit; }
 .section-title { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 6rem); font-weight: 900; line-height: 0.9; text-transform: uppercase; margin-bottom: 2rem; }
 .eyebrow { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 3px; color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; font-weight: 600; }
 .accent-text { color: var(--accent); }
+.text-center { text-align: center; }
 
 .reveal-up { opacity: 0; transform: translateY(40px); transition: all 1s var(--ease-custom); }
 .reveal-up.active { opacity: 1; transform: translateY(0); }
@@ -159,10 +160,10 @@ button { font-family: inherit; }
 ========================================= */
 .destinations-section { padding: 100px 0; max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; gap: 80px; }
 .destination-category { display: flex; flex-direction: column; gap: 30px; }
-.category-header { padding: 0 5vw; }
+.category-header { padding: 0 40px; }
 
 .carousel-wrapper { position: relative; width: 100%; display: flex; flex-direction: column; gap: 20px; }
-.carousel-track { display: flex; gap: 30px; padding: 0 5vw; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
+.carousel-track { display: flex; gap: 30px; padding: 0 40px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 20px; }
 .carousel-track::-webkit-scrollbar { display: none; }
 .carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -337,6 +338,8 @@ button { font-family: inherit; }
     .partners-section { padding: 40px 0; margin-bottom: 40px; }
     .split-section { padding: 50px 20px; gap: 40px; }
     .nav-container { padding: 0 20px; }
+    .category-header { padding: 0 20px; }
+    .carousel-track { padding: 0 20px; }
     
     /* Typography */
     .section-title { font-size: clamp(2.2rem, 7vw, 3.5rem); }
@@ -370,6 +373,13 @@ button { font-family: inherit; }
     content: '';
     position: absolute;
     inset: -15px; /* Expands clickable area to 42px touch target */
+}
+
+/* Desktop Partner Centering */
+@media (min-width: 769px) {
+    .partners-track {
+        justify-content: center;
+    }
 }
 
 

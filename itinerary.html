@@ -248,7 +248,7 @@
             <p class="eyebrow reveal">Detailed Itinerary</p>
             <h1 id="dest-title" class="reveal delay-1">Loading...</h1>
             <p id="dest-price" class="subtitle reveal delay-2"></p>
-            <div style="margin-top: 20px;" class="reveal delay-2">
+            <div style="margin-top: 20px;" class="reveal delay-2 text-center">
                 <a id="book-btn-top" href="https://wa.me/918200061818" target="_blank" class="btn-primary hover-target magnetic-btn">Book This Trip <i class='bx bxl-whatsapp'></i></a>
             </div>
         </div>
@@ -546,9 +546,11 @@
                         mobileImagesHtml += `<img src="assets/pdf-pages/${imgKey}_page_${i}.png" alt="${dest.title} Page ${i+1}" loading="lazy">`;
                     }
                 }
-                contentArea.innerHTML = `<div class="pdf-wrapper">
+                contentArea.innerHTML = `<div class="pdf-wrapper" style="position: relative;">
+                        <!-- Spinner inside the wrapper -->
+                        <div id="pdf-spinner" class="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>
                         <div class="pdf-container">
-                            <iframe src="${dest.file}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="${dest.title} Itinerary"></iframe>
+                            <iframe src="${dest.file}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="${dest.title} Itinerary" onload="document.getElementById('pdf-spinner').style.display='none';"></iframe>
                             <div class="pdf-page-images">${mobileImagesHtml}</div>
                         </div>
                     </div>
